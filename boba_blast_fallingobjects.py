@@ -10,12 +10,6 @@ class FallingObject(Actor, ABC):
     """
     Represents a falling object (tapioca and rocks).
     """
-    def __init__(self, image):
-        """
-        Initializes an instance of a FallingObject.
-        """
-        super().__init__(image)
-        self._y_value = 0
 
     def __repr__(self):
         return (super().x_pos, super().y_pos)
