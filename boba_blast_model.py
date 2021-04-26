@@ -14,7 +14,7 @@ class Actor(pygame.sprite.Sprite):
         _image: The image used to visually represent the Actor.
         _width: An integer representing the width of the image in pixels.
         _height: An integer representing the height of the image in pixels.
-        _rect: A Rect representing the hitbox of the ACtor in pixels.
+        _rect: A Rect representing the hitbox of the Actor in pixels.
     """
     def __init__(self, image):
         """
@@ -25,7 +25,8 @@ class Actor(pygame.sprite.Sprite):
         self._image = image
         self._width = image.get_width()
         self._height = image.get_height()
-        self._rect = pygame.Rect(x_pos, y_pos, width, height)
+        self._rect = pygame.Rect(self.x_pos, self.y_pos, self.width, \
+            self.height)
 
     def __repr__(self):
         """
