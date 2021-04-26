@@ -25,7 +25,7 @@ class FallingObject(Actor, ABC):
         """
         A method to update location or remove invalid objects.
         """
-        if self.y_pos <= 0 or pygame.sprite.spritecollide()
+        if self.y_pos >= SCREEN_HEIGHT:
             self.kill()
 
 class Tapioca(FallingObject):
@@ -34,17 +34,29 @@ class Tapioca(FallingObject):
     """
     # tapioca = pygame.sprite.Group() <-- this could be good for collisions
     
+    def __init__(self):
+        super().__init__()
+        self._image = pygame.image.load('tapioca.png').convert()
+
     def __repr__(self):
         """
         Returns a representation of a Tapioca object.
         """
-        super.__repr__()
+        super().__repr__()
+
+    def update(self, player_group):
+        
+
 
 class Rock(FallingObject):
     """
     Represents a rock.
     """
     
+    def __init__(self):
+        super().__init__()
+        self._image = pygame.image.load('rock.png').convert()
+
     def __repr__(self):
         """
         Returns a representation of a Rock object.
@@ -56,6 +68,3 @@ class FallingObjectGenerator:
     Generates
     """
 
-    tapioca_image = pygame.image.load('tapioca.png').convert()
-
-    rock_image = pygame.image.load('rock.png').convert()
