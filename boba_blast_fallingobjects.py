@@ -15,7 +15,7 @@ class FallingObject(Actor, ABC):
         Initializes an instance of a FallingObject.
         """
         super().__init__(image)
-        self._y_value = `screen.get_height`
+        self._y_value = 0
 
     def __repr__(self):
         return (super().x_pos, super().y_pos)
