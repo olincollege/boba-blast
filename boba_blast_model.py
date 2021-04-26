@@ -6,7 +6,7 @@ pygame.init()
 
 
 
-class Actor():
+class Actor:
     """
     Represents an actor.
 
