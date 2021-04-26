@@ -2,7 +2,7 @@
 Boba blast game model implementation.
 """
 import pygame
-
+from abc import ABC, abstractmethod
 
 class Actor(pygame.sprite.Sprite):
     """
@@ -12,12 +12,15 @@ class Actor(pygame.sprite.Sprite):
         _x_pos: An integer representing the x-coordinate of the location.
         _y_pos: An integer representing the y-coordinate of the location.
     """
-    def __init__(self):
+    def __init__(self, image):
         """
         Initializes an instance of an Actor.
         """
         self._x_pos = None
         self._y_pos = None
+        self._image = image
+        self.width = image.get_width()
+        self._height = image.get_height()
 
     def __repr__(self):
         """
