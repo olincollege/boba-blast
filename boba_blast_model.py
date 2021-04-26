@@ -9,15 +9,15 @@ class Actor(pygame.sprite.Sprite):
     Represents an actor.
 
     Attributes:
-        _x_value: An integer representing the x-coordinate of the location.
-        _y_value: An integer representing the y-coordinate of the location.
+        _x_pos: An integer representing the x-coordinate of the location.
+        _y_pos: An integer representing the y-coordinate of the location.
     """
     def __init__(self):
         """
         Initializes an instance of an Actor.
         """
-        self._x_value = None
-        self._y_value = None
+        self._x_pos = None
+        self._y_pos = None
 
     def __repr__(self):
         """
@@ -25,15 +25,15 @@ class Actor(pygame.sprite.Sprite):
         pass
 
     @property
-    def x_value(self):
+    def x_pos(self):
         """
-        Returns the value of the _x_value attribute.
+        Returns the value of the _x_pos attribute.
         """
-        return self._x_value
+        return self._x_pos
 
     @property
-    def y_value(self):
+    def y_pos(self):
         """
-        Returns the value of the _y_value attribute.
+        Returns the value of the _y_pos attribute.
         """
-        return self._y_value
+        return self._y_pos
