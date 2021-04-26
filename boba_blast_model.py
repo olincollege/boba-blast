@@ -2,11 +2,9 @@
 Boba blast game model implementation.
 """
 import pygame
-pygame.init()
 
 
-
-class Actor:
+class Actor(pygame.sprite.Sprite):
     """
     Represents an actor.
 
