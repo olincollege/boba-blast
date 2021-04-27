@@ -41,7 +41,7 @@ class Player(pygame.sprite.Sprite):
 
         #set screen boundaries
         if self.rect.left < 0:
-            self.rect.left = DISPLAY_WIDTH - PLAYER_WIDTH
+            self.rect.right = DISPLAY_WIDTH
         if self.rect.right > DISPLAY_WIDTH:
             self.rect.left = 0
 
@@ -77,7 +77,6 @@ while running:
 
     game_display.blit(player.surface, player.rect)
     pygame.display.flip()
-
                                 
     #set background color to all black
     game_display.fill((0,0,0))
