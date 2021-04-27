@@ -2,10 +2,14 @@
 Display instance of a player that takes user inputs to move side to side
 """
 import pygame
+from PIL import Image
 
 #initialize pygame
 pygame.init()
 
+#get dimensions of player sprite using Pillow
+im = Image.open("Player(1).png")
+PLAYER_WIDTH, PLAYER_HEIGHT = im.size
 
 #view
 DISPLAY_WIDTH = 800
@@ -22,17 +26,24 @@ class Player(pygame.sprite.Sprite):
 
     def __init__(self):
         super(Player, self).__init__()
-        self.surface = pygame.Surface((75,25))
-        self.rect = self.surf.get_rect()
-    
-        pygame.sprite.Sprite.__init__(self)
-        self.images = []
-
-        img = pygame.image.load(os.path.join('i')
+        #surface is pygame object for representing images
+        self.surface = pygame.image.load("Player(1).png").convert()
+        #pygame object for storing rectangular coordinates)
+        self.rect = self.surface.get_rect(bottomleft = (DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
 
     def move_sprite(self, pressed_keys):
         if pressed_keys[pygame.K_LEFT]:
-            #self.
+            #move_ip() stands for move in place to move current rect
+            self.rect.move_ip(-5,0)
+
+        if pressed_keys[pygame.K_RIGHT]:
+            self.rect.move_ip(5,0)
+
+        #set screen boundaries
+        if self.rect.left < 0:
+            self.rect.left = DISPLAY_WIDTH - PLAYER_WIDTH
+        if self.rect.right > DISPLAY_WIDTH:
+            self.rect.left = 0
 
 #initialize pygame
 pygame.init()
@@ -46,7 +57,10 @@ player = Player()
 
 #set up game loop which 1. takes user input, updates state of all game objects, updates display and audio output, maintains speed of teh game
 running = True
-                                
+
+#establish playable frame rate
+clock = pygame.time.Clock()
+
 #main loop
 while running:
     #check events that are stored in queue (all user input results in an event)
@@ -54,15 +68,21 @@ while running:
         #check if the user closed the window button and stop loop if they did
         if event.type == pygame.QUIT:
             running = False
-    
-    #set background color to all black
-    game_display.fill((0,0,0))
-    #draw player on the screen
-    screen.blit(player.surface, (DISPLAY_WIDTH/2, DISPLAY_HEIGHT/2))
-    pygame.display.flip() #update screen
-    
+
     #use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
     pressed_keys = pygame.key.get_pressed()
     
+    #update player location
+    player.move_sprite(pressed_keys)
+
+    game_display.blit(player.surface, player.rect)
+    pygame.display.flip()
+
+                                
+    #set background color to all black
+    game_display.fill((0,0,0))
+    
+    #keep a frame rate of 30 frames per second
+    clock.tick(30)
             
         
