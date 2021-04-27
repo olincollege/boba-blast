@@ -29,7 +29,7 @@ background_rect = background_image.get_rect()
 
 all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
-rock_sprites = pygame.sprite.Groups()
+rock_sprites = pygame.sprite.Group()
 player_sprite = pygame.sprite.GroupSingle()     # pass as argument to Player __init__
 
 class Tapioca(pygame.sprite.Sprite):
@@ -48,7 +48,7 @@ class Tapioca(pygame.sprite.Sprite):
 class Rock(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_sprites, rock_sprites)
-        self.image = pygame.transform.scale(rock_image, (25, 25))
+        self.image = pygame.transform.scale(rock_image, (35, 35))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
         self.rect.center = (random.randint(0, SCREEN_WIDTH), 0)
@@ -68,11 +68,10 @@ while not game_over:
         if event.type == pygame.QUIT:
             game_over = True
 
-    # TODO: figure out timing lmao
-    if pygame.time.get_ticks() % 20000:
-        Tapioca()
-    elif pygame.time.get_ticks() % 30000:
+    if pygame.time.get_ticks() % 500 == 0:
         Rock()
+    elif pygame.time.get_ticks() % 150 == 0:
+        Tapioca()
     all_sprites.update()
 
     # Check for collision between player instance and any tapioca, and delete tapioca if there is one
