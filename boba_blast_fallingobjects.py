@@ -11,11 +11,12 @@ class FallingObject(Actor, ABC):
     Represents a falling object (tapioca and rocks).
     """
 
-    def __init__(self, image, x=None, y=None, screen):
+    def __init__(self):
         """
         Initializes a FallingObject at y = 0 and a random x-position.
         """
-        super().__init__(image, random.randint(0, SCREEN_WIDTH), 0, screen)
+        super().__init__(self)
+        self.rect.center = ()
 
     def __repr__(self):
         return f"(x, y) = {super().x_pos, super().y_pos)}"
@@ -45,7 +46,7 @@ class Tapioca(FallingObject):
         super().__repr__()
 
     def update(self, player_group):
-        
+
 
 
 class Rock(FallingObject):

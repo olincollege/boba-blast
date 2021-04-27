@@ -16,30 +16,46 @@ SCREEN_HEIGHT = 600
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Boba Blast!")
 
+# Load images
 BLACK = (0, 0, 0)   # PNG background color
 GREEN = (0, 255, 0)
 game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
 images_folder = os.path.join(game_folder, 'images')
+
 tapioca_image = pygame.image.load(os.path.join(images_folder, 'tapioca.png')).convert()
+rock_image = pygame.image.load(os.path.join(images_folder, 'rock.png')).convert()
+background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
+background_rect = background_image.get_rect()
 
 all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
 rock_sprites = pygame.sprite.Group()
 
-class FallingObject(pygame.sprite.Sprite):
+class Tapioca(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_sprites, tapioca_sprites)
-        self.image = tapioca_image
+        self.image = pygame.transform.scale(tapioca_image, (25, 25))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
-        self.rect.center = (self.image.get_width() / 2, self.image.get_height() / 2)
+        self.rect.center = (random.randint(0, SCREEN_WIDTH), 0)
+    
+    def update(self):
+        self.rect.y += 1
+        if self.rect.bottom >= SCREEN_HEIGHT:
+            self.kill()
+
+class Rock(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__(all_sprites, rock_sprites)
+        self.image = pygame.transform.scale(rock_image, (25, 25))
+        self.image.set_colorkey(BLACK)
+        self.rect = self.image.get_rect()
+        self.rect.center = (random.randint(0, SCREEN_WIDTH), 0)
     
     def update(self):
         self.rect.y += 5
         if self.rect.bottom >= SCREEN_HEIGHT:
             self.kill()
-
-falling_tapioca = FallingObject()
 
 game_over = False
 while not game_over:
@@ -51,18 +67,17 @@ while not game_over:
             game_over = True
 
     all_sprites.update()
+    if pygame.time.get_ticks() % 2:
+        Tapioca()
+    elif pygame.time.get_ticks() % 2500:
+        Rock()
 
     # fill background
     screen.fill(GREEN)
+    screen.blit(background_image, background_rect)
     all_sprites.draw(screen)
 
     pygame.display.flip()
 
-    # if pygame.time.get_ticks() % 1500:
-    #     # generate tapioca instance and view
-    #     pass
-    # elif pygame.time.get_ticks() % 2500:
-    #     # generate rock instance and view
-    #     pass
 
 pygame.quit()
