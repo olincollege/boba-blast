@@ -29,7 +29,8 @@ background_rect = background_image.get_rect()
 
 all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
-rock_sprites = pygame.sprite.Group()
+rock_sprites = pygame.sprite.Groups()
+player_sprite = pygame.sprite.GroupSingle()     # pass as argument to Player __init__
 
 class Tapioca(pygame.sprite.Sprite):
     def __init__(self):
@@ -57,6 +58,7 @@ class Rock(pygame.sprite.Sprite):
         if self.rect.bottom >= SCREEN_HEIGHT:
             self.kill()
 
+# Ok this is the actual game section that belongs here
 game_over = False
 while not game_over:
     fpsClock.tick(FPS)
@@ -66,11 +68,18 @@ while not game_over:
         if event.type == pygame.QUIT:
             game_over = True
 
-    all_sprites.update()
-    if pygame.time.get_ticks() % 2:
+    # TODO: figure out timing lmao
+    if pygame.time.get_ticks() % 20000:
         Tapioca()
-    elif pygame.time.get_ticks() % 2500:
+    elif pygame.time.get_ticks() % 30000:
         Rock()
+    all_sprites.update()
+
+    # Check for collision between player instance and any tapioca, and delete tapioca if there is one
+    tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True)
+    if tapioca_collision:
+        # Increment player's tapioca count by 1
+        pass
 
     # fill background
     screen.fill(GREEN)
