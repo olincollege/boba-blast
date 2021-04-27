@@ -59,33 +59,37 @@ class Rock(pygame.sprite.Sprite):
             self.kill()
 
 # Ok this is the actual game section that belongs here
-game_over = False
-while not game_over:
-    fpsClock.tick(FPS)
 
-    for event in pygame.event.get():
-        # check for user closing window
-        if event.type == pygame.QUIT:
-            game_over = True
+def main():
+    game_over = False
+    while not game_over:
+        fpsClock.tick(FPS)
 
-    if pygame.time.get_ticks() % 500 == 0:
-        Rock()
-    elif pygame.time.get_ticks() % 150 == 0:
-        Tapioca()
-    all_sprites.update()
+        for event in pygame.event.get():
+            # check for user closing window
+            if event.type == pygame.QUIT:
+                game_over = True
 
-    # Check for collision between player instance and any tapioca, and delete tapioca if there is one
-    tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True)
-    if tapioca_collision:
-        # Increment player's tapioca count by 1
-        pass
+        if pygame.time.get_ticks() % 500 == 0:
+            Rock()
+        elif pygame.time.get_ticks() % 150 == 0:
+            Tapioca()
+        all_sprites.update()
 
-    # fill background
-    screen.fill(GREEN)
-    screen.blit(background_image, background_rect)
-    all_sprites.draw(screen)
+        # Check for collision between player instance and any tapioca, and delete tapioca if there is one
+        tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True)
+        if tapioca_collision:
+            # Increment player's tapioca count by 1
+            pass
 
-    pygame.display.flip()
+        # fill background
+        screen.fill(GREEN)
+        screen.blit(background_image, background_rect)
+        all_sprites.draw(screen)
+
+        pygame.display.flip()
+    pygame.quit()
 
 
-pygame.quit()
+if __name__ == "__main__":
+    main()
