@@ -25,11 +25,17 @@ images_folder = os.path.join(game_folder, 'images')
 
 tapioca_image = pygame.image.load(os.path.join(images_folder, 'tapioca.png')).convert()
 rock_image = pygame.image.load(os.path.join(images_folder, 'rock.png')).convert()
+
 player_image = pygame.image.load(os.path.join(images_folder, 'Player(1).png')).convert()
+PLAYER_WIDTH, PLAYER_HEIGHT = player_image.get_size()
+
 lives_image = pygame.image.load(os.path.join(images_folder, 'lives.png')).convert()
 lives_image = pygame.transform.scale(lives_image, (35, 35))
 lives_image.set_colorkey((247, 247, 247))
-PLAYER_WIDTH, PLAYER_HEIGHT = player_image.get_size()
+
+boba_image = pygame.image.load(os.path.join(images_folder, 'boba.png')).convert()
+boba_image.set_colorkey((247, 247, 247))
+
 background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 background_rect = background_image.get_rect()
 
@@ -40,7 +46,16 @@ def draw_lives(surf, x, y, lives, lives_image):
         img_rect.y = y
         surf.blit(lives_image, img_rect)
 
-font_name = pygame.font.match_font('comic sans')
+def draw_boba(surf, x, y, score, boba_image):
+    # 10 tapioca = 1 boba
+    bobas = score // 10
+    for i in range(bobas):
+        img_rect = boba_image.get_rect()
+        img_rect.x = x + 20 * i
+        img_rect.y = y
+        surf.blit(boba_image, img_rect)
+
+font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, (255, 255, 255))
@@ -164,10 +179,11 @@ def main():
 
         # fill background
         screen.fill(BLACK)
-        screen.blit(background_image, background_rect)
+        screen.blit(background_image, background_rect)  # make this into a function
         all_sprites.draw(screen)
         draw_lives(screen, 5, 5, player.lives, lives_image)
         draw_text(screen, str(score), 48, DISPLAY_WIDTH / 2, 10)
+        draw_boba(screen, 5, DISPLAY_HEIGHT - 40, score, boba_image)
 
         pygame.display.flip()
     pygame.quit()
