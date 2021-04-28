@@ -2,8 +2,8 @@
 Creates and runs an instance of the Boba Blast game!
 """
 import pygame, random, os
-from PIL import Image
-from boba_blast_view import Display
+# from PIL import Image
+# from boba_blast_view import Display
 
 pygame.init()
 
@@ -26,14 +26,32 @@ images_folder = os.path.join(game_folder, 'images')
 tapioca_image = pygame.image.load(os.path.join(images_folder, 'tapioca.png')).convert()
 rock_image = pygame.image.load(os.path.join(images_folder, 'rock.png')).convert()
 player_image = pygame.image.load(os.path.join(images_folder, 'Player(1).png')).convert()
+lives_image = pygame.image.load(os.path.join(images_folder, 'lives.png')).convert()
+lives_image = pygame.transform.scale(lives_image, (35, 35))
+lives_image.set_colorkey((247, 247, 247))
 PLAYER_WIDTH, PLAYER_HEIGHT = player_image.get_size()
 background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 background_rect = background_image.get_rect()
 
+def draw_lives(surf, x, y, lives, lives_image):
+    for i in range(lives):
+        img_rect = lives_image.get_rect()
+        img_rect.x = x + 40 * i
+        img_rect.y = y
+        surf.blit(lives_image, img_rect)
+
+font_name = pygame.font.match_font('comic sans')
+def draw_text(surf, text, size, x, y):
+    font = pygame.font.Font(font_name, size)
+    text_surface = font.render(text, True, (255, 255, 255))
+    text_rect = text_surface.get_rect()
+    text_rect.midtop = (x, y)
+    surf.blit(text_surface, text_rect)
+
 all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
 rock_sprites = pygame.sprite.Group()
-player_sprite = pygame.sprite.GroupSingle()     # pass as argument to Player __init__
+player_sprite = pygame.sprite.GroupSingle()
 
 class Player(pygame.sprite.Sprite):
     """
@@ -50,6 +68,10 @@ class Player(pygame.sprite.Sprite):
         self.image.set_colorkey(BLACK)
         #pygame object for storing rectangular coordinates)
         self.rect = self.image.get_rect(bottomleft=(DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
+        # mask for collisions
+        self.mask = pygame.mask.from_surface(self.image)
+        # set number of lives
+        self.lives = 3
 
     def move_sprite(self, pressed_keys):
         if pressed_keys[pygame.K_LEFT]:
@@ -71,7 +93,7 @@ class Tapioca(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(tapioca_image, (25, 25))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
-        # self.rect.center = (random.randint(0, DISPLAY_WIDTH), 0)
+        self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
         self.rect.y += 1
@@ -87,7 +109,7 @@ class Rock(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(rock_image, (35, 35))
         self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
-        # self.rect.center = (random.randint(0, DISPLAY_WIDTH), 0)
+        self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
         self.rect.y += 5
@@ -102,9 +124,12 @@ player = Player()   # This part isn't working
 
 def main():
     game_over = False
+    score = 0
     
     while not game_over:
         fpsClock.tick(FPS)
+        if player.lives == 0:
+            game_over = True
 
         for event in pygame.event.get():
             # check for user closing window
@@ -126,21 +151,23 @@ def main():
         all_sprites.update()
 
         # Check for collision between player instance and any tapioca, and delete tapioca if there is one
-        tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True)
+        tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True, pygame.sprite.collide_mask)
         if tapioca_collision:
-            # Increment player's tapioca count by 1
-            pass
+            # Increment score by 1
+            score += 1
 
         # Check for collision between player instance and any rock, and delete rock is there is one
-        tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True)
-        if tapioca_collision:
+        rock_collision = pygame.sprite.groupcollide(player_sprite, rock_sprites, False, True, pygame.sprite.collide_mask)
+        if rock_collision:
             # Player takes damage
-            pass
+            player.lives -= 1
 
         # fill background
         screen.fill(BLACK)
         screen.blit(background_image, background_rect)
         all_sprites.draw(screen)
+        draw_lives(screen, 5, 5, player.lives, lives_image)
+        draw_text(screen, str(score), 48, DISPLAY_WIDTH / 2, 10)
 
         pygame.display.flip()
     pygame.quit()
