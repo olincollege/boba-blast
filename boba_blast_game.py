@@ -136,6 +136,7 @@ class Rock(pygame.sprite.Sprite):
 
 # Ok this is the actual game section that belongs here
 player = Player()   # This part isn't working
+user = GraphicalController()
 
 def main():
     game_over = False
@@ -151,12 +152,11 @@ def main():
             if event.type == pygame.QUIT:
                 game_over = True
 
-        #use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
-        pressed_keys = pygame.key.get_pressed()
+        #get user moves
+        pressed_keys = user.get_move()
         
         #update player location
         player.move_sprite(pressed_keys)
-
         screen.blit(player.image, player.rect)
 
         if pygame.time.get_ticks() % 500 == 0:
