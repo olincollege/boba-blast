@@ -25,8 +25,8 @@ images_folder = os.path.join(game_folder, 'images')
 
 tapioca_image = pygame.image.load(os.path.join(images_folder, 'tapioca.png')).convert()
 rock_image = pygame.image.load(os.path.join(images_folder, 'rock.png')).convert()
-im = Image.open("Player(1).png")
-PLAYER_WIDTH, PLAYER_HEIGHT = im.size
+player_image = pygame.image.load(os.path.join(images_folder, 'Player(1).png')).convert()
+PLAYER_WIDTH, PLAYER_HEIGHT = player_image.get_size()
 background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 background_rect = background_image.get_rect()
 
@@ -40,15 +40,16 @@ class Player(pygame.sprite.Sprite):
     Create a player
 
     Attributes:
-        surface: surface drawn on the screen
+        image: A surface drawn on the screen visually representing a player.
     """
 
     def __init__(self):
-        super(Player, self).__init__()
+        super(Player, self).__init__(all_sprites, player_sprite)
         #surface is pygame object for representing images
-        self.surface = pygame.image.load("Player(1).png").convert()
+        self.image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
+        self.image.set_colorkey(BLACK)
         #pygame object for storing rectangular coordinates)
-        self.rect = self.surface.get_rect(bottomleft = (DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
+        self.rect = self.image.get_rect(bottomleft=(DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
 
     def move_sprite(self, pressed_keys):
         if pressed_keys[pygame.K_LEFT]:
@@ -69,8 +70,8 @@ class Tapioca(pygame.sprite.Sprite):
         super().__init__(all_sprites, tapioca_sprites)
         self.image = pygame.transform.scale(tapioca_image, (25, 25))
         self.image.set_colorkey(BLACK)
-        self.rect = self.image.get_rect()
-        self.rect.center = (random.randint(0, DISPLAY_WIDTH), 0)
+        self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
+        # self.rect.center = (random.randint(0, DISPLAY_WIDTH), 0)
     
     def update(self):
         self.rect.y += 1
@@ -85,8 +86,8 @@ class Rock(pygame.sprite.Sprite):
         super().__init__(all_sprites, rock_sprites)
         self.image = pygame.transform.scale(rock_image, (35, 35))
         self.image.set_colorkey(BLACK)
-        self.rect = self.image.get_rect()
-        self.rect.center = (random.randint(0, DISPLAY_WIDTH), 0)
+        self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
+        # self.rect.center = (random.randint(0, DISPLAY_WIDTH), 0)
     
     def update(self):
         self.rect.y += 5
@@ -97,10 +98,10 @@ class Rock(pygame.sprite.Sprite):
         return f"There is a rock at {self.rect.center}."
 
 # Ok this is the actual game section that belongs here
+player = Player()   # This part isn't working
 
 def main():
     game_over = False
-    player = Player()   # This part isn't working
     
     while not game_over:
         fpsClock.tick(FPS)
@@ -116,7 +117,7 @@ def main():
         #update player location
         player.move_sprite(pressed_keys)
 
-        screen.blit(player.surface, player.rect)
+        screen.blit(player.image, player.rect)
 
         if pygame.time.get_ticks() % 500 == 0:
             Rock()
