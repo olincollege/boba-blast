@@ -2,6 +2,7 @@
 Display instance of a player that takes user inputs to move side to side
 """
 import pygame
+from boba_blast_controller import GraphicalController
 from PIL import Image
 
 #initialize pygame
@@ -54,6 +55,7 @@ game_display = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 
 #create instance of player
 player = Player()
+user = GraphicalController()
 
 #set up game loop which 1. takes user input, updates state of all game objects, updates display and audio output, maintains speed of teh game
 running = True
@@ -69,8 +71,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    #use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
-    pressed_keys = pygame.key.get_pressed()
+    pressed_keys = user.get_move()
     
     #update player location
     player.move_sprite(pressed_keys)
