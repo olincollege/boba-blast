@@ -37,7 +37,6 @@ boba_image = pygame.image.load(os.path.join(images_folder, 'boba.png')).convert(
 boba_image.set_colorkey((247, 247, 247))
 
 background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
-background_rect = background_image.get_rect()
 
 def draw_lives(surf, x, y, lives, lives_image):
     for i in range(lives):
@@ -54,6 +53,10 @@ def draw_boba(surf, x, y, score, boba_image):
         img_rect.x = x + 20 * i
         img_rect.y = y
         surf.blit(boba_image, img_rect)
+
+def draw_background(surf, background_image):
+    background_rect = background_image.get_rect()
+    surf.blit(background_image, background_rect)  # make this into a function
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
@@ -97,9 +100,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.move_ip(5,0)
 
         #set screen boundaries
-        if self.rect.left < 0:
+        if self.rect.centerx < 0:
             self.rect.left = DISPLAY_WIDTH - PLAYER_WIDTH
-        if self.rect.right > DISPLAY_WIDTH:
+        if self.rect.centerx > DISPLAY_WIDTH:
             self.rect.left = 0
 
 class Tapioca(pygame.sprite.Sprite):
@@ -136,7 +139,7 @@ class Rock(pygame.sprite.Sprite):
 
 # Ok this is the actual game section that belongs here
 player = Player()   # This part isn't working
-user = GraphicalController()
+# user = GraphicalController()
 
 def main():
     game_over = False
@@ -152,9 +155,11 @@ def main():
             if event.type == pygame.QUIT:
                 game_over = True
 
-        #get user moves
-        pressed_keys = user.get_move()
-        
+        # #get user moves
+        # pressed_keys = user.get_move()
+        #use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
+        pressed_keys = pygame.key.get_pressed()
+
         #update player location
         player.move_sprite(pressed_keys)
         screen.blit(player.image, player.rect)
@@ -179,7 +184,7 @@ def main():
 
         # fill background
         screen.fill(BLACK)
-        screen.blit(background_image, background_rect)  # make this into a function
+        draw_background(screen, background_image)
         all_sprites.draw(screen)
         draw_lives(screen, 5, 5, player.lives, lives_image)
         draw_text(screen, str(score), 48, DISPLAY_WIDTH / 2, 10)

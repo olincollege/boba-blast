@@ -41,9 +41,9 @@ class Player(pygame.sprite.Sprite):
             self.rect.move_ip(5,0)
 
         #set screen boundaries
-        if self.rect.left < 0:
+        if self.rect.centerx < 0:
             self.rect.right = DISPLAY_WIDTH
-        if self.rect.right > DISPLAY_WIDTH:
+        if self.rect.centerx > DISPLAY_WIDTH:
             self.rect.left = 0
 
 #initialize pygame
