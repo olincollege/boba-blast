@@ -37,6 +37,16 @@ boba_image.set_colorkey((247, 247, 247))
 background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 
 def draw_lives(surf, x, y, lives, lives_image):
+    """
+    Draw images representing the number of lives the player has.
+
+    Args:
+        surf: Surface on which to draw.
+        x: An integer representing the x-coordinate of the image.
+        y: An integer representing the y-coordinate of the image.
+        lives: An integer representing the number of lives a player has.
+        lives_image: An image representing a life.
+    """
     for i in range(lives):
         img_rect = lives_image.get_rect()
         img_rect.x = x + 40 * i
@@ -44,6 +54,16 @@ def draw_lives(surf, x, y, lives, lives_image):
         surf.blit(lives_image, img_rect)
 
 def draw_boba(surf, x, y, score, boba_image):
+    """
+    Draw images representing the number of drinks a player has collected.
+
+    Args:
+        surf: Surface on which to draw.
+        x: An integer representing the x-coordinate of the image.
+        y: An integer representing the y-coordinate of the image.
+        score: An integer representing the player's score (number of tapioca).
+        boba_image: An image representing one boba drink.
+    """
     # 10 tapioca = 1 boba
     bobas = score // 10
     for i in range(bobas):
@@ -53,11 +73,30 @@ def draw_boba(surf, x, y, score, boba_image):
         surf.blit(boba_image, img_rect)
 
 def draw_background(surf, background_image):
+    """
+    Draws the background image.
+
+    Args:
+        surf: Surface on which to draw.
+        background_image: The image to be used for the background. It should
+            have the same aspect ratio as the display.
+    """
     background_rect = background_image.get_rect()
+    background_image = pygame.transform.scale(background_image, (DISPLAY_WIDTH, DISPLAY_HEIGHT))
     surf.blit(background_image, background_rect)  # make this into a function
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
+    """
+    Draw text on the screen.
+
+    Args:
+        surf: Surface on which to draw.
+        text: A string representing the text to render.
+        size: An integer representing the size of the text.
+        x: An integer representing the x-coordinate of the text.
+        y: An integer representing the y-coordinate of the text.
+    """
     font = pygame.font.Font(font_name, size)
     text_surface = font.render(text, True, (255, 255, 255))
     text_rect = text_surface.get_rect()
@@ -71,22 +110,19 @@ player_sprite = pygame.sprite.GroupSingle()
 
 class Player(pygame.sprite.Sprite):
     """
-    Create a player
-
-    Attributes:
-        image: A surface drawn on the screen visually representing a player.
     """
 
     def __init__(self):
+        # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
         super(Player, self).__init__(all_sprites, player_sprite)
         #surface is pygame object for representing images
         self.image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
         self.image.set_colorkey((0,0,0))
         #pygame object for storing rectangular coordinates)
         self.rect = self.image.get_rect(bottomleft=(DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
-        # mask for collisions
+        # mask for collisions (eventually change to just basket on head, once we have that)
         self.mask = pygame.mask.from_surface(self.image)
-        # set number of lives
+        # set number of lives to start with
         self.lives = 3
 
     def move_sprite(self, pressed_keys):
@@ -109,9 +145,11 @@ class Tapioca(pygame.sprite.Sprite):
         self.image = pygame.transform.scale(tapioca_image, (25, 25))
         self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
+        # Set hitbox for collisions
         self.mask = pygame.mask.from_surface(self.image)
     
     def update(self):
+        # Falls on every update.
         self.rect.y += 1
         if self.rect.bottom >= DISPLAY_HEIGHT:
             self.kill()
