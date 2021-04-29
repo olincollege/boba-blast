@@ -126,7 +126,7 @@ class Player(pygame.sprite.Sprite):
 
     def move_sprite(self, pressed_keys):
         if pressed_keys[pygame.K_LEFT]:
-            #m ove_ip() stands for move in place to move current rect
+            # move_ip() stands for move in place to move current rect
             self.rect.move_ip(-5,0)
 
         if pressed_keys[pygame.K_RIGHT]:
