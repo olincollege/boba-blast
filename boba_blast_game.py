@@ -2,7 +2,6 @@
 Creates and runs an instance of the Boba Blast game!
 """
 import pygame, random, os
-# from PIL import Image
 # from boba_blast_view import Display
 
 pygame.init()
@@ -83,7 +82,7 @@ def draw_background(surf, background_image):
     """
     background_rect = background_image.get_rect()
     background_image = pygame.transform.scale(background_image, (DISPLAY_WIDTH, DISPLAY_HEIGHT))
-    surf.blit(background_image, background_rect)  # make this into a function
+    surf.blit(background_image, background_rect)
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
@@ -115,10 +114,10 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
         super(Player, self).__init__(all_sprites, player_sprite)
-        #surface is pygame object for representing images
+        # surface is pygame object for representing images
         self.image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
         self.image.set_colorkey((0,0,0))
-        #pygame object for storing rectangular coordinates)
+        # pygame object for storing rectangular coordinates)
         self.rect = self.image.get_rect(bottomleft=(DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
         # mask for collisions (eventually change to just basket on head, once we have that)
         self.mask = pygame.mask.from_surface(self.image)
@@ -127,18 +126,19 @@ class Player(pygame.sprite.Sprite):
 
     def move_sprite(self, pressed_keys):
         if pressed_keys[pygame.K_LEFT]:
-            #move_ip() stands for move in place to move current rect
+            #m ove_ip() stands for move in place to move current rect
             self.rect.move_ip(-5,0)
 
         if pressed_keys[pygame.K_RIGHT]:
             self.rect.move_ip(5,0)
 
-        #set screen boundaries
+        # set screen boundaries
         if self.rect.centerx < 0:
             self.rect.left = DISPLAY_WIDTH - PLAYER_WIDTH
         if self.rect.centerx > DISPLAY_WIDTH:
             self.rect.left = 0
 
+# Eventually put Tapioca and Rock under FallingObject subclass
 class Tapioca(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_sprites, tapioca_sprites)
@@ -191,9 +191,9 @@ def main():
             if event.type == pygame.QUIT:
                 game_over = True
 
-        # #get user moves
+        # # get user moves
         # pressed_keys = user.get_move()
-        #use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
+        # use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
         pressed_keys = pygame.key.get_pressed()
 
         #update player location
