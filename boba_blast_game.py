@@ -18,8 +18,6 @@ screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
 pygame.display.set_caption("Boba Blast!")
 
 # Load images
-BLACK = (0, 0, 0)   # PNG background color
-GREEN = (0, 255, 0)
 game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
 images_folder = os.path.join(game_folder, 'images')
 
@@ -83,7 +81,7 @@ class Player(pygame.sprite.Sprite):
         super(Player, self).__init__(all_sprites, player_sprite)
         #surface is pygame object for representing images
         self.image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
-        self.image.set_colorkey(BLACK)
+        self.image.set_colorkey((0,0,0))
         #pygame object for storing rectangular coordinates)
         self.rect = self.image.get_rect(bottomleft=(DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
         # mask for collisions
@@ -109,7 +107,7 @@ class Tapioca(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_sprites, tapioca_sprites)
         self.image = pygame.transform.scale(tapioca_image, (25, 25))
-        self.image.set_colorkey(BLACK)
+        self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
         self.mask = pygame.mask.from_surface(self.image)
     
@@ -125,7 +123,7 @@ class Rock(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__(all_sprites, rock_sprites)
         self.image = pygame.transform.scale(rock_image, (35, 35))
-        self.image.set_colorkey(BLACK)
+        self.image.set_colorkey((0,0,0))
         self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
         self.mask = pygame.mask.from_surface(self.image)
     
@@ -183,7 +181,7 @@ def main():
             player.lives -= 1
 
         # fill background
-        screen.fill(BLACK)
+        screen.fill((0,0,0))
         draw_background(screen, background_image)
         all_sprites.draw(screen)
         draw_lives(screen, 5, 5, player.lives, lives_image)
