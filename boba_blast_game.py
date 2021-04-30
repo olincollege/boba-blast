@@ -6,6 +6,7 @@ from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca
 
 pygame.init()
+pygame.mixer.init() #for sound
 
 # Track time
 FPS = 60
@@ -187,6 +188,7 @@ def main():
 
     screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
     Display.load_images(screen)
+    pygame.display.flip()
         
     player = Player(screen)   # This part isn't working
     # user = GraphicalController()
