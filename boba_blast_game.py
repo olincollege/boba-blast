@@ -2,7 +2,7 @@
 Creates and runs an instance of the Boba Blast game!
 """
 import pygame, random, os
-# from boba_blast_view import Display
+from boba_blast_view import Display
 
 pygame.init()
 
@@ -10,13 +10,13 @@ pygame.init()
 FPS = 60
 fpsClock = pygame.time.Clock()
 
-# Create display screen
-DISPLAY_WIDTH = 800
-DISPLAY_HEIGHT = 600
-screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
-pygame.display.set_caption("Boba Blast!")
+# # Create display screen
+# DISPLAY_WIDTH = 800
+# DISPLAY_HEIGHT = 600
+# screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
+# pygame.display.set_caption("Boba Blast!")
 
-# Load images
+# # Load images
 game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
 images_folder = os.path.join(game_folder, 'images')
 
@@ -33,7 +33,10 @@ lives_image.set_colorkey((247, 247, 247))
 boba_image = pygame.image.load(os.path.join(images_folder, 'boba.png')).convert()
 boba_image.set_colorkey((247, 247, 247))
 
-background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
+# background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
+
+# Display.load_images() # this should load images in as variables in this file
+
 
 def draw_lives(surf, x, y, lives, lives_image):
     """
@@ -81,7 +84,7 @@ def draw_background(surf, background_image):
             have the same aspect ratio as the display.
     """
     background_rect = background_image.get_rect()
-    background_image = pygame.transform.scale(background_image, (DISPLAY_WIDTH, DISPLAY_HEIGHT))
+    background_image = pygame.transform.scale(background_image, (surf.DISPLAY_WIDTH, surf.DISPLAY_HEIGHT))
     surf.blit(background_image, background_rect)
 
 font_name = pygame.font.match_font('arial')
@@ -111,20 +114,20 @@ class Player(pygame.sprite.Sprite):
     """
     """
 
-    def __init__(self):
+    def __init__(self, screen):
         # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
         super(Player, self).__init__(all_sprites, player_sprite)
         # surface is pygame object for representing images
         self.image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
         self.image.set_colorkey((0,0,0))
         # pygame object for storing rectangular coordinates)
-        self.rect = self.image.get_rect(bottomleft=(DISPLAY_WIDTH/2, DISPLAY_HEIGHT - PLAYER_HEIGHT))
+        self.rect = self.image.get_rect(bottomleft=(screen.DISPLAY_WIDTH/2, screen.DISPLAY_HEIGHT - PLAYER_HEIGHT))
         # mask for collisions (eventually change to just basket on head, once we have that)
         self.mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
         self.lives = 3
 
-    def move_sprite(self, pressed_keys):
+    def move_sprite(self, screen, pressed_keys):
         """
         Args:
             pressed_keys: 
@@ -138,53 +141,61 @@ class Player(pygame.sprite.Sprite):
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.rect.left = DISPLAY_WIDTH - PLAYER_WIDTH
-        if self.rect.centerx > DISPLAY_WIDTH:
+            self.rect.left = screen.DISPLAY_WIDTH - screen.PLAYER_WIDTH
+        if self.rect.centerx > screen.DISPLAY_WIDTH:
             self.rect.left = 0
 
 # Eventually put Tapioca and Rock under FallingObject subclass
 class Tapioca(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, screen):
         super().__init__(all_sprites, tapioca_sprites)
         self.image = pygame.transform.scale(tapioca_image, (25, 25))
         self.image.set_colorkey((0,0,0))
-        self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
+        self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
         # Set hitbox for collisions
         self.mask = pygame.mask.from_surface(self.image)
     
-    def update(self):
+    def update(self, screen):
         # Falls on every update.
         self.rect.y += 1
-        if self.rect.bottom >= DISPLAY_HEIGHT:
+        if self.rect.bottom >= screen.DISPLAY_HEIGHT:
             self.kill()
     
     def __repr__(self):
         return f"There is tapioca at {self.rect.center}."
 
 class Rock(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, screen):
         super().__init__(all_sprites, rock_sprites)
         self.image = pygame.transform.scale(rock_image, (35, 35))
         self.image.set_colorkey((0,0,0))
-        self.rect = self.image.get_rect(center=(random.randint(0, DISPLAY_WIDTH), 0))
+        self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
         self.mask = pygame.mask.from_surface(self.image)
     
-    def update(self):
+    def update(self, screen):
         self.rect.y += 5
-        if self.rect.bottom >= DISPLAY_HEIGHT:
+        if self.rect.bottom >= screen.DISPLAY_HEIGHT:
             self.kill()
     
     def __repr__(self):
         return f"There is a rock at {self.rect.center}."
 
 # Ok this is the actual game section that belongs here
-player = Player()   # This part isn't working
-# user = GraphicalController()
-
 def main():
     game_over = False
     score = 0
-    
+
+    game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
+    images_folder = os.path.join(game_folder, 'images')
+    background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
+    DISPLAY_WIDTH = 800
+    DISPLAY_HEIGHT = 600
+
+    screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
+        
+    player = Player(screen)   # This part isn't working
+    # user = GraphicalController()
+
     while not game_over:
         fpsClock.tick(FPS)
         if player.lives == 0:
@@ -201,14 +212,14 @@ def main():
         pressed_keys = pygame.key.get_pressed()
 
         #update player location
-        player.move_sprite(pressed_keys)
+        player.move_sprite(screen, pressed_keys)
         screen.blit(player.image, player.rect)
 
         if pygame.time.get_ticks() % 500 == 0:
-            Rock()
+            Rock(screen)
         elif pygame.time.get_ticks() % 150 == 0:
-            Tapioca()
-        all_sprites.update()
+            Tapioca(screen)
+        all_sprites.update(screen)
 
         # Check for collision between player instance and any tapioca, and delete tapioca if there is one
         tapioca_collision = pygame.sprite.groupcollide(player_sprite, tapioca_sprites, False, True, pygame.sprite.collide_mask)
@@ -223,12 +234,12 @@ def main():
             player.lives -= 1
 
         # fill background
-        screen.fill((0,0,0))
+        screen.fill((0,255,0))
         draw_background(screen, background_image)
         all_sprites.draw(screen)
         draw_lives(screen, 5, 5, player.lives, lives_image)
-        draw_text(screen, str(score), 48, DISPLAY_WIDTH / 2, 10)
-        draw_boba(screen, 5, DISPLAY_HEIGHT - 40, score, boba_image)
+        draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)
+        draw_boba(screen, 5, screen.DISPLAY_HEIGHT - 40, score, boba_image)
 
         pygame.display.flip()
     pygame.quit()
