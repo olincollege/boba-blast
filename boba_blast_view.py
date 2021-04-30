@@ -53,6 +53,7 @@ class Display(pygame.Surface):
         self.background_image = pygame.transform.scale(self.background_image, (self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT))
         self.blit(self.background_image, self.background_rect)
 
+
 # class Player(pygame.sprite.Sprite):
 #     """
 #     Create a player

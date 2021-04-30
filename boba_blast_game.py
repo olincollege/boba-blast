@@ -3,18 +3,13 @@ Creates and runs an instance of the Boba Blast game!
 """
 import pygame, random, os
 from boba_blast_view import Display
+from boba_blast_model import Rock, Tapioca
 
 pygame.init()
 
 # Track time
 FPS = 60
 fpsClock = pygame.time.Clock()
-
-# # Create display screen
-# DISPLAY_WIDTH = 800
-# DISPLAY_HEIGHT = 600
-# screen = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
-# pygame.display.set_caption("Boba Blast!")
 
 # # Load images
 game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
@@ -32,8 +27,6 @@ lives_image.set_colorkey((247, 247, 247))
 
 boba_image = pygame.image.load(os.path.join(images_folder, 'boba.png')).convert()
 boba_image.set_colorkey((247, 247, 247))
-
-# background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 
 def draw_lives(surf, x, y, lives, lives_image):
     """
@@ -145,41 +138,41 @@ class Player(pygame.sprite.Sprite):
             self.rect.left = 0
 
 # Eventually put Tapioca and Rock under FallingObject subclass
-class Tapioca(pygame.sprite.Sprite):
-    def __init__(self, screen):
-        super().__init__(all_sprites, tapioca_sprites)
-        self.image = pygame.transform.scale(tapioca_image, (25, 25))
-        self.image.set_colorkey((0,0,0))
-        self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
-        # Set hitbox for collisions
-        self.mask = pygame.mask.from_surface(self.image)
+# class Tapioca(pygame.sprite.Sprite):
+#     def __init__(self, screen):
+#         super().__init__(all_sprites, tapioca_sprites)
+#         self.image = pygame.transform.scale(tapioca_image, (25, 25))
+#         self.image.set_colorkey((0,0,0))
+#         self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
+#         # Set hitbox for collisions
+#         self.mask = pygame.mask.from_surface(self.image)
     
-    def update(self, screen):
-        # Falls on every update.
-        self.rect.y += 1
-        print("Tapioca falls")
-        if self.rect.bottom >= screen.DISPLAY_HEIGHT:
-            self.kill()
+#     def update(self, screen):
+#         # Falls on every update.
+#         self.rect.y += 1
+#         print("Tapioca falls")
+#         if self.rect.bottom >= screen.DISPLAY_HEIGHT:
+#             self.kill()
     
-    def __repr__(self):
-        return f"There is tapioca at {self.rect.center}."
+#     def __repr__(self):
+#         return f"There is tapioca at {self.rect.center}."
 
-class Rock(pygame.sprite.Sprite):
-    def __init__(self, screen):
-        super().__init__(all_sprites, rock_sprites)
-        self.image = pygame.transform.scale(rock_image, (35, 35))
-        self.image.set_colorkey((0,0,0))
-        self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
-        self.mask = pygame.mask.from_surface(self.image)
+# class Rock(pygame.sprite.Sprite):
+#     def __init__(self, screen):
+#         super().__init__(all_sprites, rock_sprites)
+#         self.image = pygame.transform.scale(rock_image, (35, 35))
+#         self.image.set_colorkey((0,0,0))
+#         self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
+#         self.mask = pygame.mask.from_surface(self.image)
     
-    def update(self, screen):
-        self.rect.y += 5
-        print("Rock falls")
-        if self.rect.bottom >= screen.DISPLAY_HEIGHT:
-            self.kill()
+#     def update(self, screen):
+#         self.rect.y += 5
+#         print("Rock falls")
+#         if self.rect.bottom >= screen.DISPLAY_HEIGHT:
+#             self.kill()
     
-    def __repr__(self):
-        return f"There is a rock at {self.rect.center}."
+#     def __repr__(self):
+#         return f"There is a rock at {self.rect.center}."
 
 # Ok this is the actual game section that belongs here
 def main():
@@ -218,9 +211,10 @@ def main():
         screen.blit(player.image, player.rect)
 
         if pygame.time.get_ticks() % 500 == 0:
-            Rock(screen)
+            Rock(screen, [all_sprites, rock_sprites])
         elif pygame.time.get_ticks() % 150 == 0:
-            Tapioca(screen)
+            Tapioca(screen, [all_sprites, tapioca_sprites])
+        # Calls the update method of each group
         all_sprites.update(screen)
 
         # Check for collision between player instance and any tapioca, and delete tapioca if there is one
