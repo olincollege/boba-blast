@@ -35,9 +35,6 @@ boba_image.set_colorkey((247, 247, 247))
 
 # background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 
-# Display.load_images() # this should load images in as variables in this file
-
-
 def draw_lives(surf, x, y, lives, lives_image):
     """
     Draw images representing the number of lives the player has.
@@ -74,18 +71,18 @@ def draw_boba(surf, x, y, score, boba_image):
         img_rect.y = y
         surf.blit(boba_image, img_rect)
 
-def draw_background(surf, background_image):
-    """
-    Draws the background image.
+# def draw_background(surf, background_image):
+#     """
+#     Draws the background image.
 
-    Args:
-        surf: Surface on which to draw.
-        background_image: The image to be used for the background. It should
-            have the same aspect ratio as the display.
-    """
-    background_rect = background_image.get_rect()
-    background_image = pygame.transform.scale(background_image, (surf.DISPLAY_WIDTH, surf.DISPLAY_HEIGHT))
-    surf.blit(background_image, background_rect)
+#     Args:
+#         surf: Surface on which to draw.
+#         background_image: The image to be used for the background. It should
+#             have the same aspect ratio as the display.
+#     """
+#     background_rect = background_image.get_rect()
+#     background_image = pygame.transform.scale(background_image, (surf.DISPLAY_WIDTH, surf.DISPLAY_HEIGHT))
+#     surf.blit(background_image, background_rect)
 
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
@@ -134,14 +131,16 @@ class Player(pygame.sprite.Sprite):
         """
         if pressed_keys[pygame.K_LEFT]:
             # move_ip() stands for move in place to move current rect
+            print("left")
             self.rect.move_ip(-5,0)
 
         if pressed_keys[pygame.K_RIGHT]:
+            print("right")
             self.rect.move_ip(5,0)
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.rect.left = screen.DISPLAY_WIDTH - screen.PLAYER_WIDTH
+            self.rect.left = screen.DISPLAY_WIDTH - PLAYER_WIDTH
         if self.rect.centerx > screen.DISPLAY_WIDTH:
             self.rect.left = 0
 
@@ -158,6 +157,7 @@ class Tapioca(pygame.sprite.Sprite):
     def update(self, screen):
         # Falls on every update.
         self.rect.y += 1
+        print("Tapioca falls")
         if self.rect.bottom >= screen.DISPLAY_HEIGHT:
             self.kill()
     
@@ -174,6 +174,7 @@ class Rock(pygame.sprite.Sprite):
     
     def update(self, screen):
         self.rect.y += 5
+        print("Rock falls")
         if self.rect.bottom >= screen.DISPLAY_HEIGHT:
             self.kill()
     
@@ -192,6 +193,7 @@ def main():
     DISPLAY_HEIGHT = 600
 
     screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
+    Display.load_images(screen)
         
     player = Player(screen)   # This part isn't working
     # user = GraphicalController()
@@ -234,8 +236,8 @@ def main():
             player.lives -= 1
 
         # fill background
-        screen.fill((0,255,0))
-        draw_background(screen, background_image)
+        screen.fill_background((0,255,0))
+        screen.draw_background()
         all_sprites.draw(screen)
         draw_lives(screen, 5, 5, player.lives, lives_image)
         draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)

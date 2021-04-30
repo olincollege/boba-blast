@@ -23,42 +23,35 @@ class Display(pygame.Surface):
     # DISPLAY_HEIGHT = 600
 
     # Create display screen
-    def __init__(self, width, height, image):
+    def __init__(self, width, height, background_image):
         super().__init__((width, height))
         pygame.display.set_caption("Boba Blast!")
-        self.blit(images_folder, (0, 0, width, height))
+        self.blit(background_image, (0, 0, width, height))
         self.DISPLAY_WIDTH = 800
         self.DISPLAY_HEIGHT = 600
         # pygame.display.set_mode((self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT)).fill((0, 255, 0))
-        # pygame.display.set_caption("Boba Blast!")
         
-    def load_images():
+    def load_images(self):
         # Load images
-        game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
-        images_folder = os.path.join(game_folder, 'images')
+        self.game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
+        self.images_folder = os.path.join(game_folder, 'images')
 
-        tapioca_image = pygame.image.load(os.path.join(images_folder, 'tapioca.png')).convert()
-        rock_image = pygame.image.load(os.path.join(images_folder, 'rock.png')).convert()
+        self.background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 
-        player_image = pygame.image.load(os.path.join(images_folder, 'Player(1).png')).convert()
-        PLAYER_WIDTH, PLAYER_HEIGHT = player_image.get_size()
+    def fill_background(self, color):
+        """
+        Args:
+            color: A tuple, (R, G, B), representing a color.
+        """
+        self.fill(color)
 
-        lives_image = pygame.image.load(os.path.join(images_folder, 'lives.png')).convert()
-        lives_image = pygame.transform.scale(lives_image, (35, 35))
-        lives_image.set_colorkey((247, 247, 247))
-
-        boba_image = pygame.image.load(os.path.join(images_folder, 'boba.png')).convert()
-        boba_image.set_colorkey((247, 247, 247))
-
-        background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
-        DISPLAY_WIDTH = 800
-        DISPLAY_HEIGHT = 600
-
-    # def fill(self):
-    #     self.fill((0,0,0))
-
-    def blit(sprite, image, location):
-        pass
+    def draw_background(self):
+        """
+        Draws the background image.
+        """
+        self.background_rect = self.background_image.get_rect()
+        self.background_image = pygame.transform.scale(self.background_image, (self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT))
+        self.blit(self.background_image, self.background_rect)
 
 # class Player(pygame.sprite.Sprite):
 #     """
