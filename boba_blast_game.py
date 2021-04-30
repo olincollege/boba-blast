@@ -125,6 +125,10 @@ class Player(pygame.sprite.Sprite):
         self.lives = 3
 
     def move_sprite(self, pressed_keys):
+        """
+        Args:
+            pressed_keys: 
+        """
         if pressed_keys[pygame.K_LEFT]:
             # move_ip() stands for move in place to move current rect
             self.rect.move_ip(-5,0)
@@ -190,7 +194,14 @@ def main():
             # check for user closing window
             if event.type == pygame.QUIT:
                 game_over = True
-
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    # move_ip() stands for move in place to move current rect
+                    player.rect.move_ip(-5,0)
+                if event.key == pygame.K_RIGHT:
+                    # move_ip() stands for move in place to move current rect
+                    player.rect.move_ip(5,0)
+                
         # # get user moves
         # pressed_keys = user.get_move()
         # use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
