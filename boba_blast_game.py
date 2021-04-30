@@ -2,8 +2,10 @@
 Creates and runs an instance of the Boba Blast game!
 """
 import pygame, random, os
+from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca
+
 
 pygame.init()
 pygame.mixer.init() #for sound
@@ -177,6 +179,7 @@ class Player(pygame.sprite.Sprite):
 
 # Ok this is the actual game section that belongs here
 def main():
+    user = GraphicalController()
     game_over = False
     score = 0
 
@@ -198,15 +201,10 @@ def main():
         if player.lives == 0:
             game_over = True
 
-        for event in pygame.event.get():
-            # check for user closing window
-            if event.type == pygame.QUIT:
-                game_over = True
-
+        user.check_exit()
+        
         # # get user moves
-        # pressed_keys = user.get_move()
-        # use pygame get_pressed() which returns a bool dictionary containing all keys that are pressed in queue
-        pressed_keys = pygame.key.get_pressed()
+        pressed_keys = user.get_move()
 
         #update player location
         player.move_sprite(screen, pressed_keys)
