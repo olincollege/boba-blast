@@ -29,7 +29,7 @@ ROCK_IMAGE = pygame.image.load(os.path.join(
 ROCK_IMAGE.set_colorkey((255, 255, 255))
 
 PLAYER_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Player(1).png'))
-PLAYER_IMAGE.set_colorkey((255, 255, 255))
+PLAYER_IMAGE.set_colorkey((0,0,0))
 PLAYER_WIDTH, PLAYER_HEIGHT = PLAYER_IMAGE.get_size()
 
 LIVES_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-lives.png'))
