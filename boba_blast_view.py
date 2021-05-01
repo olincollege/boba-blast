@@ -16,21 +16,28 @@ tapioca_sprites = pygame.sprite.Group()
 rock_sprites = pygame.sprite.Group()
 player_sprite = pygame.sprite.GroupSingle()
 
-class Display(pygame.Surface):
-
+# class Display(pygame.Surface):
+class Display():
     # background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
     # DISPLAY_WIDTH = 800
     # DISPLAY_HEIGHT = 600
 
     # Create display screen
-    def __init__(self, width, height, background_image):
-        super().__init__((width, height))
-        pygame.display.set_caption("Boba Blast!")
-        self.blit(background_image, (0, 0, width, height))
+    def __init__(self, screen):
+        # super().__init__()
+        self._screen = screen
+    # def __init__(self, width, height):#, background_image):
+    #     super().__init__((width, height))
+    #     pygame.display.set_caption("Boba Blast!")
+    #     # self.blit(background_image, (0, 0, width, height))
         self.DISPLAY_WIDTH = 800
         self.DISPLAY_HEIGHT = 600
-        # pygame.display.set_mode((self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT)).fill((0, 255, 0))
-        
+    #     # pygame.display.set_mode((self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT)).fill((0, 255, 0))
+    
+    @property
+    def screen(self):
+        return self._screen
+
     def load_images(self):
         # Load images
         self.game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
@@ -38,12 +45,15 @@ class Display(pygame.Surface):
 
         self.background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
 
-    def fill_background(self, color):
-        """
-        Args:
-            color: A tuple, (R, G, B), representing a color.
-        """
-        self.fill(color)
+    # def fill_background(self, color):
+    #     """
+    #     Args:
+    #         color: A tuple, (R, G, B), representing a color.
+    #     """
+    #     self._screen.fill(color)
+
+    def fill_background(self):
+        self._screen.fill((0, 255, 0))
 
     def draw_background(self, screen):
         """
@@ -51,7 +61,22 @@ class Display(pygame.Surface):
         """
         self.background_rect = self.background_image.get_rect()
         self.background_image = pygame.transform.scale(self.background_image, (self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT))
-        screen.blit(self.background_image, self.background_rect)
+        self._screen.blit(self.background_image, self.background_rect)
+    
+    def screen_blit(self, image, rect):
+        """
+        Blits a sprite.
+        """
+        self._screen.blit(image, rect)
+    
+    def draw_group(self, group):
+        """
+        Draws all sprites in a group onto a surface.
+
+        Args:
+            group: The group of sprites to be drawn.
+        """
+        group.draw(self._screen)
 
 
 # class Player(pygame.sprite.Sprite):

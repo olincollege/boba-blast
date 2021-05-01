@@ -67,19 +67,6 @@ def draw_boba(surf, x, y, score, boba_image):
         img_rect.y = y
         surf.blit(boba_image, img_rect)
 
-# def draw_background(surf, background_image):
-#     """
-#     Draws the background image.
-
-#     Args:
-#         surf: Surface on which to draw.
-#         background_image: The image to be used for the background. It should
-#             have the same aspect ratio as the display.
-#     """
-#     background_rect = background_image.get_rect()
-#     background_image = pygame.transform.scale(background_image, (surf.DISPLAY_WIDTH, surf.DISPLAY_HEIGHT))
-#     surf.blit(background_image, background_rect)
-
 font_name = pygame.font.match_font('arial')
 def draw_text(surf, text, size, x, y):
     """
@@ -153,14 +140,17 @@ class Game:
     DISPLAY_WIDTH = 800
     DISPLAY_HEIGHT = 600
 
-    def __init__(self, width, height, background_image):
-        super().__init__((width, height))
-        pygame.display.set_caption("Boba Blast!")
+    # def __init__(self, width, height, background_image):
+    #     super().__init__((width, height))
+    #     pygame.display.set_caption("Boba Blast!")
 
-    screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
+    # game_surface = pygame.Surface((800, 600))
+    screen = pygame.display.set_mode((800, 600))
+    screen = Display(screen)
+    # screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
     screen.load_images()
     # screen.draw_background(screen)
-    screen.fill_background((0, 255, 0))
+    screen.fill_background()
         
     player = Player(screen)   # This part isn't working
     # user = GraphicalController()
@@ -181,7 +171,7 @@ class Game:
 
         #update player location
         player.move_sprite(screen, pressed_keys)
-        screen.blit(player.image, player.rect)
+        screen.screen_blit(player.image, player.rect)
 
         if pygame.time.get_ticks() % 500 == 0:
             Rock(screen, [all_sprites, rock_sprites])
@@ -203,12 +193,12 @@ class Game:
             player.lives -= 1
 
         # fill background
-        screen.fill_background((0,255,0))
+        screen.fill_background()
         screen.draw_background(screen)
-        all_sprites.draw(screen)
-        draw_lives(screen, 5, 5, player.lives, lives_image)
-        draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)
-        draw_boba(screen, 5, screen.DISPLAY_HEIGHT - 40, score, boba_image)
+        screen.draw_group(all_sprites)
+        # draw_lives(screen, 5, 5, player.lives, lives_image)
+        # draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)
+        # draw_boba(screen, 5, screen.DISPLAY_HEIGHT - 40, score, boba_image)
 
         pygame.display.flip()
     pygame.quit()
