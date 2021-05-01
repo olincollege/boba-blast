@@ -1,8 +1,16 @@
-import pygame, random, os, constants
+"""
+pylint
+"""
+
+import pygame
+import constants
 pygame.init()
 
-class Display():
 
+class Display():
+    """
+    pylint
+    """
     # Create display screen
     def __init__(self, screen):
         self._screen = screen
@@ -25,13 +33,13 @@ class Display():
         _rect = image.get_rect()
         _image = pygame.transform.scale(image, dims)
         self._screen.blit(_image, _rect)
-    
+
     def screen_blit(self, image, rect):
         """
         Blits a sprite.
         """
         self._screen.blit(image, rect)
-    
+
     def draw_group(self, group):
         """
         Draws all sprites in a group onto a surface.
