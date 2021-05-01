@@ -8,12 +8,12 @@ FPS = 60
 GAME_FOLDER = os.path.dirname(__file__)     # figures out path to the folder with this file
 IMAGES_FOLDER = os.path.join(GAME_FOLDER, 'images')
 
-BACKGROUND_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'background.png'))
+BACKGROUND_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-06-06.png'))
 DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 600
 
-TAPIOCA_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'tapioca.png'))
-ROCK_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'rock.png'))
+TAPIOCA_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-05-tapioca.png'))
+ROCK_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-05-rock.png'))
 
 PLAYER_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Player(1).png'))
 PLAYER_WIDTH, PLAYER_HEIGHT = PLAYER_IMAGE.get_size()
