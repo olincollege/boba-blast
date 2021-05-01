@@ -5,7 +5,6 @@ pygame.init()
 # Frames per second
 FPS = 60
 
-#
 # figures out path to the folder with this file
 GAME_FOLDER = os.path.dirname(__file__)
 IMAGES_FOLDER = os.path.join(GAME_FOLDER, 'images')
@@ -14,6 +13,12 @@ BACKGROUND_IMAGE = pygame.image.load(
     os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-06-06.png'))
 DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 600
+
+WELCOME_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-02.png'))#.convert()
+WELCOME_IMAGE = pygame.transform.scale(WELCOME_IMAGE, (800,600))
+
+END_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-04-04.png'))#.convert()
+END_IMAGE = pygame.transform.scale(END_IMAGE, (800,600))
 
 TAPIOCA_IMAGE = pygame.image.load(os.path.join(
     IMAGES_FOLDER, 'Boba-Blast(2)-05-tapioca.png'))

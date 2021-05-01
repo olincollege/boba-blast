@@ -6,7 +6,6 @@ import pygame
 import constants
 # from abc import ABC, abstractmethod
 
-
 class Player(pygame.sprite.Sprite):
     """
     pylint
@@ -20,9 +19,7 @@ class Player(pygame.sprite.Sprite):
         # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
         super().__init__(groups)
         # surface is pygame object for representing images
-        self.image = pygame.transform.scale(
-            constants.PLAYER_IMAGE, (constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT))
-        self.image.set_colorkey((0, 0, 0))
+        self.image = constants.PLAYER_IMAGE.convert()
         # pygame object for storing rectangular coordinates)
         self.rect = self.image.get_rect(bottomleft=(
             constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.PLAYER_HEIGHT))
