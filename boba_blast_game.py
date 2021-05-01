@@ -10,62 +10,6 @@ from boba_blast_model import Rock, Tapioca
 pygame.init()
 pygame.mixer.init() #for sound
 
-# Track time
-
-
-def draw_lives(surf, x, y, lives, lives_image):
-    """
-    Draw images representing the number of lives the player has.
-
-    Args:
-        surf: Surface on which to draw.
-        x: An integer representing the x-coordinate of the image.
-        y: An integer representing the y-coordinate of the image.
-        lives: An integer representing the number of lives a player has.
-        lives_image: An image representing a life.
-    """
-    for i in range(lives):
-        img_rect = lives_image.get_rect()
-        img_rect.x = x + 40 * i
-        img_rect.y = y
-        surf.blit(lives_image, img_rect)
-
-def draw_boba(surf, x, y, score, boba_image):
-    """
-    Draw images representing the number of drinks a player has collected.
-
-    Args:
-        surf: Surface on which to draw.
-        x: An integer representing the x-coordinate of the image.
-        y: An integer representing the y-coordinate of the image.
-        score: An integer representing the player's score (number of tapioca).
-        boba_image: An image representing one boba drink.
-    """
-    # 10 tapioca = 1 boba
-    bobas = score // 10
-    for i in range(bobas):
-        img_rect = boba_image.get_rect()
-        img_rect.x = x + 20 * i
-        img_rect.y = y
-        surf.blit(boba_image, img_rect)
-
-font_name = pygame.font.match_font('arial')
-def draw_text(surf, text, size, x, y):
-    """
-    Draw text on the screen.
-
-    Args:
-        surf: Surface on which to draw.
-        text: A string representing the text to render.
-        size: An integer representing the size of the text.
-        x: An integer representing the x-coordinate of the text.
-        y: An integer representing the y-coordinate of the text.
-    """
-    font = pygame.font.Font(font_name, size)
-    text_surface = font.render(text, True, (255, 255, 255))
-    text_rect = text_surface.get_rect()
-    text_rect.midtop = (x, y)
-    surf.blit(text_surface, text_rect)
 
 all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
@@ -120,6 +64,7 @@ class Game:
     screen = pygame.display.set_mode((800, 600))
     screen = Display(screen)
     screen.draw_background(constants.BACKGROUND_IMAGE, (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
+    pygame.display.set_caption("Boba Blast!")
         
     player = Player(screen)
 
@@ -162,11 +107,16 @@ class Game:
 
         # fill background
         screen.fill_background((0, 255, 0))
+        # Draw background image
         screen.draw_background(constants.BACKGROUND_IMAGE, (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
+        # Draw all sprites (player, tapioca, rocks)
         screen.draw_group(all_sprites)
-        # draw_lives(screen, 5, 5, player.lives, lives_image)
-        # draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)
-        # draw_boba(screen, 5, screen.DISPLAY_HEIGHT - 40, score, boba_image)
+        # Draw remaining lives
+        screen.draw_lives(5, 5, player.lives)
+        # Draw score (tapioca collected)
+        screen.draw_text(str(score), 60, constants.DISPLAY_WIDTH / 2, 7)
+        # Draw # of boba made
+        screen.draw_text(f"x{score // 10}", 60, constants.DISPLAY_WIDTH - 50, 25)
 
         pygame.display.flip()
     pygame.quit()

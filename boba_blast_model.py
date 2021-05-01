@@ -15,7 +15,7 @@ class Tapioca(pygame.sprite.Sprite):
     
     def update(self, screen):
         # Falls on every update.
-        self.rect.y += 4
+        self.rect.y += 2
         print(f"Tapioca falls @ ({self.rect.x}, {self.rect.y})")
         if self.rect.bottom >= constants.DISPLAY_HEIGHT:
             self.kill()
@@ -32,7 +32,7 @@ class Rock(pygame.sprite.Sprite):
         self._mask = pygame.mask.from_surface(self.image)
 
     def update(self, screen):
-        self.rect.y += 3
+        self.rect.y += 4
         print(f"Rock falls @ ({self.rect.x}, {self.rect.y})")
         if self.rect.bottom >= constants.DISPLAY_HEIGHT:
             self.kill()

@@ -1,8 +1,6 @@
 import pygame, random, os, constants
 pygame.init()
 
-
-# class Display(pygame.Surface):
 class Display():
 
     # Create display screen
@@ -43,37 +41,54 @@ class Display():
         """
         group.draw(self._screen)
 
+    def draw_lives(self, x, y, lives):
+        """
+        Draw images representing the number of lives the player has.
 
-# class Player(pygame.sprite.Sprite):
-#     """
-#     Create a player
+        Args:
+            x: An integer representing the x-coordinate of the image.
+            y: An integer representing the y-coordinate of the image.
+            lives: An integer representing the number of lives a player has.
+        """
+        for i in range(lives):
+            img_rect = constants.LIVES_IMAGE.get_rect()
+            img_rect.x = x + 40 * i
+            img_rect.y = y
+            self._screen.blit(constants.LIVES_IMAGE, img_rect)
 
-#     Attributes:
-#         image: A surface drawn on the screen visually representing a player.
-#     """
+    def draw_boba(self, x, y, score):
+        """
+        Draw images representing the number of drinks a player has collected.
 
-#     def __init__(self):
-#         super(Player, self).__init__(all_sprites, player_sprite)
-#         #surface is pygame object for representing images
-#         self.image = pygame.transform.scale(PLAYER_IMAGE, (PLAYER_WIDTH, PLAYER_HEIGHT))
-#         self.image.set_colorkey(BLACK)
-#         #pygame object for storing rectangular coordinates)
-#         self.rect = self.image.get_rect(bottomleft=(SCREEN_WIDTH/2, SCREEN_HEIGHT - PLAYER_HEIGHT))
-#         # mask for collisions
-#         self.mask = pygame.mask.from_surface(self.image)
-#         # set number of lives
-#         self.lives = 3
+        Args:
+            x: An integer representing the x-coordinate of the image.
+            y: An integer representing the y-coordinate of the image.
+            score: An integer representing the player's score (number of tapioca).
+        """
+        # 10 tapioca = 1 boba
+        bobas = score // 10
+        for i in range(bobas):
+            img_rect = constants.BOBA_IMAGE.get_rect()
+            img_rect.x = x + 20 * i
+            img_rect.y = y
+            self._screen.blit(constants.BOBA_IMAGE, img_rect)
 
-#     def move_sprite(self, pressed_keys):
-#         if pressed_keys[pygame.K_LEFT]:
-#             #move_ip() stands for move in place to move current rect
-#             self.rect.move_ip(-5,0)
+    # all fonts: pygame.font.get_fonts()
+    def draw_text(self, text, size, x, y):
+        """
+        Draw text on the screen.
 
-#         if pressed_keys[pygame.K_RIGHT]:
-#             self.rect.move_ip(5,0)
+        Args:
+            surf: Surface on which to draw.
+            text: A string representing the text to render.
+            size: An integer representing the size of the text.
+            x: An integer representing the x-coordinate of the text.
+            y: An integer representing the y-coordinate of the text.
+        """
 
-#         #set screen boundaries
-#         if self.rect.left < 0:
-#             self.rect.left = SCREEN_WIDTH - PLAYER_WIDTH
-#         if self.rect.right > SCREEN_WIDTH:
-#             self.rect.left = 0
+        font_name = pygame.font.match_font('sarai')
+        font = pygame.font.Font(font_name, size)
+        text_surface = font.render(text, True, (255, 255, 255))
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self._screen.blit(text_surface, text_rect)
