@@ -170,7 +170,11 @@ class Game:
         if player.lives == 0:
             game_over = True
 
-        user.check_exit()
+        for event in pygame.event.get():
+            # check for user closing window
+            if event.type == pygame.QUIT:
+                game_over = True
+                pygame.quit()
         
         # # get user moves
         pressed_keys = user.get_move()
