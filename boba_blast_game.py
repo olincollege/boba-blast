@@ -1,20 +1,28 @@
 """
 Creates and runs an instance of the Boba Blast game!
 """
-import pygame, random, os, constants
-from boba_blast_controller import GraphicalController
-from boba_blast_view import Display
-from boba_blast_model import Player, Rock, Tapioca
-
-pygame.init()
-pygame.mixer.init() #for sound
-
-all_sprites = pygame.sprite.Group()
-tapioca_sprites = pygame.sprite.Group()
-rock_sprites = pygame.sprite.Group()
-player_sprite = pygame.sprite.GroupSingle()
 
 class Game:
+    """
+    Attributes:
+
+    """
+    # Import necessary packages and classes from files
+    import pygame, random, os, constants
+    from boba_blast_controller import GraphicalController
+    from boba_blast_view import Display
+    from boba_blast_model import Player, Rock, Tapioca
+
+    pygame.init()
+    pygame.mixer.init() #for sound
+
+    # Create sprite groups
+    all_sprites = pygame.sprite.Group()
+    tapioca_sprites = pygame.sprite.Group()
+    rock_sprites = pygame.sprite.Group()
+    player_sprite = pygame.sprite.GroupSingle()
+
+    # Create controller for user, and start game
     user = GraphicalController()
     game_over = False
     score = 0
@@ -25,9 +33,11 @@ class Game:
     screen = Display(screen)
     screen.draw_background(constants.BACKGROUND_IMAGE, (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
     pygame.display.set_caption("Boba Blast!")
-        
+
+    # Create player    
     player = Player(screen, [all_sprites, player_sprite])
 
+    # Run game until over
     while not game_over:
         fpsClock.tick(constants.FPS)
         if player.lives == 0:
@@ -50,6 +60,7 @@ class Game:
             Rock(screen, [all_sprites, rock_sprites])
         elif pygame.time.get_ticks() % 150 == 0:
             Tapioca(screen, [all_sprites, tapioca_sprites])
+        
         # Calls the update method of each group
         all_sprites.update(screen)
 

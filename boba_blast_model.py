@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
         # pygame object for storing rectangular coordinates)
         self.rect = self.image.get_rect(bottomleft=(constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.PLAYER_HEIGHT))
         # mask for collisions (eventually change to just basket on head, once we have that)
-        self.mask = pygame.mask.from_surface(self.image)
+        self._mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
         self.lives = 3
 
