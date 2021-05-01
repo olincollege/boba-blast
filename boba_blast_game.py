@@ -4,69 +4,29 @@ Creates and runs an instance of the Boba Blast game!
 import pygame, random, os, constants
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
-from boba_blast_model import Rock, Tapioca
-
+from boba_blast_model import Player, Rock, Tapioca
 
 pygame.init()
 pygame.mixer.init() #for sound
-
 
 all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
 rock_sprites = pygame.sprite.Group()
 player_sprite = pygame.sprite.GroupSingle()
 
-class Player(pygame.sprite.Sprite):
-    """
-    """
-
-    def __init__(self, screen):
-        # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
-        super(Player, self).__init__(all_sprites, player_sprite)
-        # surface is pygame object for representing images
-        self.image = pygame.transform.scale(constants.PLAYER_IMAGE, (constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT))
-        self.image.set_colorkey((0,0,0))
-        # pygame object for storing rectangular coordinates)
-        self.rect = self.image.get_rect(bottomleft=(constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.PLAYER_HEIGHT))
-        # mask for collisions (eventually change to just basket on head, once we have that)
-        self.mask = pygame.mask.from_surface(self.image)
-        # set number of lives to start with
-        self.lives = 3
-
-    def move_sprite(self, screen, pressed_keys):
-        """
-        Args:
-            pressed_keys: 
-        """
-        if pressed_keys[pygame.K_LEFT]:
-            # move_ip() stands for move in place to move current rect
-            print("left")
-            self.rect.move_ip(-5,0)
-
-        if pressed_keys[pygame.K_RIGHT]:
-            print("right")
-            self.rect.move_ip(5,0)
-
-        # set screen boundaries
-        if self.rect.centerx < 0:
-            self.rect.left = constants.DISPLAY_WIDTH - constants.PLAYER_WIDTH
-        if self.rect.centerx > constants.DISPLAY_WIDTH:
-            self.rect.left = 0
-
-
-# Ok this is the actual game section that belongs here
 class Game:
     user = GraphicalController()
     game_over = False
     score = 0
     fpsClock = pygame.time.Clock()
 
+    # Create screen and initialize Display
     screen = pygame.display.set_mode((800, 600))
     screen = Display(screen)
     screen.draw_background(constants.BACKGROUND_IMAGE, (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
     pygame.display.set_caption("Boba Blast!")
         
-    player = Player(screen)
+    player = Player(screen, [all_sprites, player_sprite])
 
     while not game_over:
         fpsClock.tick(constants.FPS)
@@ -79,10 +39,10 @@ class Game:
                 game_over = True
                 pygame.quit()
         
-        # # get user moves
+        # get user moves
         pressed_keys = user.get_move()
 
-        #update player location
+        # update player location
         player.move_sprite(screen, pressed_keys)
         screen.screen_blit(player.image, player.rect)
 
