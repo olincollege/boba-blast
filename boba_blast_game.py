@@ -140,45 +140,9 @@ class Player(pygame.sprite.Sprite):
         if self.rect.centerx > screen.DISPLAY_WIDTH:
             self.rect.left = 0
 
-# Eventually put Tapioca and Rock under FallingObject subclass
-# class Tapioca(pygame.sprite.Sprite):
-#     def __init__(self, screen):
-#         super().__init__(all_sprites, tapioca_sprites)
-#         self.image = pygame.transform.scale(tapioca_image, (25, 25))
-#         self.image.set_colorkey((0,0,0))
-#         self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
-#         # Set hitbox for collisions
-#         self.mask = pygame.mask.from_surface(self.image)
-    
-#     def update(self, screen):
-#         # Falls on every update.
-#         self.rect.y += 1
-#         print("Tapioca falls")
-#         if self.rect.bottom >= screen.DISPLAY_HEIGHT:
-#             self.kill()
-    
-#     def __repr__(self):
-#         return f"There is tapioca at {self.rect.center}."
-
-# class Rock(pygame.sprite.Sprite):
-#     def __init__(self, screen):
-#         super().__init__(all_sprites, rock_sprites)
-#         self.image = pygame.transform.scale(rock_image, (35, 35))
-#         self.image.set_colorkey((0,0,0))
-#         self.rect = self.image.get_rect(center=(random.randint(0, screen.DISPLAY_WIDTH), 0))
-#         self.mask = pygame.mask.from_surface(self.image)
-    
-#     def update(self, screen):
-#         self.rect.y += 5
-#         print("Rock falls")
-#         if self.rect.bottom >= screen.DISPLAY_HEIGHT:
-#             self.kill()
-    
-#     def __repr__(self):
-#         return f"There is a rock at {self.rect.center}."
 
 # Ok this is the actual game section that belongs here
-def main():
+class Game:
     user = GraphicalController()
     game_over = False
     score = 0
@@ -189,9 +153,14 @@ def main():
     DISPLAY_WIDTH = 800
     DISPLAY_HEIGHT = 600
 
+    def __init__(self, width, height, background_image):
+        super().__init__((width, height))
+        pygame.display.set_caption("Boba Blast!")
+
     screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
-    Display.load_images(screen)
-    pygame.display.flip()
+    screen.load_images()
+    # screen.draw_background(screen)
+    screen.fill_background((0, 255, 0))
         
     player = Player(screen)   # This part isn't working
     # user = GraphicalController()
@@ -231,7 +200,7 @@ def main():
 
         # fill background
         screen.fill_background((0,255,0))
-        screen.draw_background()
+        screen.draw_background(screen)
         all_sprites.draw(screen)
         draw_lives(screen, 5, 5, player.lives, lives_image)
         draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)

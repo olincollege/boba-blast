@@ -45,13 +45,13 @@ class Display(pygame.Surface):
         """
         self.fill(color)
 
-    def draw_background(self):
+    def draw_background(self, screen):
         """
         Draws the background image.
         """
         self.background_rect = self.background_image.get_rect()
         self.background_image = pygame.transform.scale(self.background_image, (self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT))
-        self.blit(self.background_image, self.background_rect)
+        screen.blit(self.background_image, self.background_rect)
 
 
 # class Player(pygame.sprite.Sprite):
