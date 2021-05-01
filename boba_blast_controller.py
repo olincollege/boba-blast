@@ -1,8 +1,5 @@
 """
 Creates the controller for the boba blast game
-
-# This should be the thing moving the players
-# Create events in event queue
 """
 import pygame, random, os
 
