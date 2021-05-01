@@ -8,8 +8,7 @@ class Tapioca(pygame.sprite.Sprite):
     def __init__(self, screen, groups):
         # image and rect attributes need to be exactly that bc pygame accesses them
         super().__init__(groups)
-        self.image = pygame.transform.scale(constants.TAPIOCA_IMAGE.convert(), (25, 25))
-        self.image.set_colorkey((255, 255, 255))
+        self.image = pygame.transform.scale(constants.TAPIOCA_IMAGE.convert(), (30, 30))
         self.rect = self.image.get_rect(center=(random.randint(0, constants.DISPLAY_WIDTH), 0))
         # Set hitbox for collisions
         self._mask = pygame.mask.from_surface(self.image)
@@ -29,7 +28,6 @@ class Rock(pygame.sprite.Sprite):
         """
         super().__init__(groups)
         self.image = pygame.transform.scale(constants.ROCK_IMAGE.convert(), (35, 35))
-        self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect(center=(random.randint(0, constants.DISPLAY_WIDTH), 0))
         self._mask = pygame.mask.from_surface(self.image)
 

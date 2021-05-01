@@ -13,9 +13,13 @@ DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 600
 
 TAPIOCA_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-05-tapioca.png'))
+TAPIOCA_IMAGE.set_colorkey((255, 255, 255))
+
 ROCK_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Boba-Blast(2)-05-rock.png'))
+ROCK_IMAGE.set_colorkey((255, 255, 255))
 
 PLAYER_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'Player(1).png'))
+PLAYER_IMAGE.set_colorkey((255, 255, 255))
 PLAYER_WIDTH, PLAYER_HEIGHT = PLAYER_IMAGE.get_size()
 
 LIVES_IMAGE = pygame.image.load(os.path.join(IMAGES_FOLDER, 'lives.png'))
