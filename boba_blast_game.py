@@ -1,7 +1,7 @@
 """
 Creates and runs an instance of the Boba Blast game!
 """
-import pygame, random, os
+import pygame, random, os, constants
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca
@@ -11,25 +11,9 @@ pygame.init()
 pygame.mixer.init() #for sound
 
 # Track time
-FPS = 60
+
 fpsClock = pygame.time.Clock()
 
-# # Load images
-game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
-images_folder = os.path.join(game_folder, 'images')
-
-tapioca_image = pygame.image.load(os.path.join(images_folder, 'tapioca.png')).convert()
-rock_image = pygame.image.load(os.path.join(images_folder, 'rock.png')).convert()
-
-player_image = pygame.image.load(os.path.join(images_folder, 'Player(1).png')).convert()
-PLAYER_WIDTH, PLAYER_HEIGHT = player_image.get_size()
-
-lives_image = pygame.image.load(os.path.join(images_folder, 'lives.png')).convert()
-lives_image = pygame.transform.scale(lives_image, (35, 35))
-lives_image.set_colorkey((247, 247, 247))
-
-boba_image = pygame.image.load(os.path.join(images_folder, 'boba.png')).convert()
-boba_image.set_colorkey((247, 247, 247))
 
 def draw_lives(surf, x, y, lives, lives_image):
     """
@@ -98,10 +82,10 @@ class Player(pygame.sprite.Sprite):
         # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
         super(Player, self).__init__(all_sprites, player_sprite)
         # surface is pygame object for representing images
-        self.image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
+        self.image = pygame.transform.scale(constants.PLAYER_IMAGE, (constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT))
         self.image.set_colorkey((0,0,0))
         # pygame object for storing rectangular coordinates)
-        self.rect = self.image.get_rect(bottomleft=(screen.DISPLAY_WIDTH/2, screen.DISPLAY_HEIGHT - PLAYER_HEIGHT))
+        self.rect = self.image.get_rect(bottomleft=(constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.PLAYER_HEIGHT))
         # mask for collisions (eventually change to just basket on head, once we have that)
         self.mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
@@ -123,8 +107,8 @@ class Player(pygame.sprite.Sprite):
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.rect.left = screen.DISPLAY_WIDTH - PLAYER_WIDTH
-        if self.rect.centerx > screen.DISPLAY_WIDTH:
+            self.rect.left = constants.DISPLAY_WIDTH - constants.PLAYER_WIDTH
+        if self.rect.centerx > constants.DISPLAY_WIDTH:
             self.rect.left = 0
 
 
@@ -134,29 +118,14 @@ class Game:
     game_over = False
     score = 0
 
-    game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
-    images_folder = os.path.join(game_folder, 'images')
-    background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
-    DISPLAY_WIDTH = 800
-    DISPLAY_HEIGHT = 600
-
-    # def __init__(self, width, height, background_image):
-    #     super().__init__((width, height))
-    #     pygame.display.set_caption("Boba Blast!")
-
-    # game_surface = pygame.Surface((800, 600))
     screen = pygame.display.set_mode((800, 600))
     screen = Display(screen)
-    # screen = Display(DISPLAY_WIDTH, DISPLAY_HEIGHT, background_image)
-    screen.load_images()
-    # screen.draw_background(screen)
-    screen.fill_background()
+    screen.draw_background(constants.BACKGROUND_IMAGE, (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
         
-    player = Player(screen)   # This part isn't working
-    # user = GraphicalController()
+    player = Player(screen)
 
     while not game_over:
-        fpsClock.tick(FPS)
+        fpsClock.tick(constants.FPS)
         if player.lives == 0:
             game_over = True
 
@@ -193,8 +162,8 @@ class Game:
             player.lives -= 1
 
         # fill background
-        screen.fill_background()
-        screen.draw_background(screen)
+        screen.fill_background((0, 255, 0))
+        screen.draw_background(constants.BACKGROUND_IMAGE, (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
         screen.draw_group(all_sprites)
         # draw_lives(screen, 5, 5, player.lives, lives_image)
         # draw_text(screen, str(score), 48, screen.DISPLAY_WIDTH / 2, 10)

@@ -1,67 +1,32 @@
-import pygame, random, os
+import pygame, random, os, constants
 pygame.init()
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-BLACK = (0, 0, 0)   # PNG background color
-GREEN = (0, 255, 0)
-game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
-images_folder = os.path.join(game_folder, 'images')
-pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-PLAYER_IMAGE = pygame.image.load(os.path.join(images_folder, 'Player(1).png')).convert()
-PLAYER_WIDTH, PLAYER_HEIGHT = PLAYER_IMAGE.get_size()
-
-all_sprites = pygame.sprite.Group()
-tapioca_sprites = pygame.sprite.Group()
-rock_sprites = pygame.sprite.Group()
-player_sprite = pygame.sprite.GroupSingle()
 
 # class Display(pygame.Surface):
 class Display():
-    # background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
-    # DISPLAY_WIDTH = 800
-    # DISPLAY_HEIGHT = 600
 
     # Create display screen
     def __init__(self, screen):
-        # super().__init__()
         self._screen = screen
-    # def __init__(self, width, height):#, background_image):
-    #     super().__init__((width, height))
-    #     pygame.display.set_caption("Boba Blast!")
-    #     # self.blit(background_image, (0, 0, width, height))
-        self.DISPLAY_WIDTH = 800
-        self.DISPLAY_HEIGHT = 600
-    #     # pygame.display.set_mode((self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT)).fill((0, 255, 0))
-    
-    @property
-    def screen(self):
-        return self._screen
 
-    def load_images(self):
-        # Load images
-        self.game_folder = os.path.dirname(__file__)     # figures out path to the folder with this file
-        self.images_folder = os.path.join(game_folder, 'images')
+    def fill_background(self, color):
+        """
+        Args:
+            color: A tuple, (R, G, B), representing a color.
+        """
+        self._screen.fill(color)
 
-        self.background_image = pygame.image.load(os.path.join(images_folder, 'background.png')).convert()
-
-    # def fill_background(self, color):
-    #     """
-    #     Args:
-    #         color: A tuple, (R, G, B), representing a color.
-    #     """
-    #     self._screen.fill(color)
-
-    def fill_background(self):
-        self._screen.fill((0, 255, 0))
-
-    def draw_background(self, screen):
+    def draw_background(self, image, dims):
         """
         Draws the background image.
+
+        Args:
+            image: Image to blit.
+            dims: Dimensions of the display, as an integer tuple
         """
-        self.background_rect = self.background_image.get_rect()
-        self.background_image = pygame.transform.scale(self.background_image, (self.DISPLAY_WIDTH, self.DISPLAY_HEIGHT))
-        self._screen.blit(self.background_image, self.background_rect)
+        _rect = image.get_rect()
+        _image = pygame.transform.scale(image, dims)
+        self._screen.blit(_image, _rect)
     
     def screen_blit(self, image, rect):
         """
