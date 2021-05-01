@@ -35,11 +35,9 @@ class Player(pygame.sprite.Sprite):
         """
         if pressed_keys[pygame.K_LEFT]:
             # move_ip() stands for move in place to move current rect
-            print("left")
             self.rect.move_ip(-5, 0)
 
         if pressed_keys[pygame.K_RIGHT]:
-            print("right")
             self.rect.move_ip(5, 0)
 
         # set screen boundaries
@@ -67,7 +65,6 @@ class Tapioca(pygame.sprite.Sprite):
     def update(self):
         # Falls on every update.
         self.rect.y += 2
-        print(f"Tapioca falls @ ({self.rect.x}, {self.rect.y})")
         if self.rect.bottom >= constants.DISPLAY_HEIGHT:
             self.kill()
 
@@ -87,6 +84,5 @@ class Rock(pygame.sprite.Sprite):
 
     def update(self):
         self.rect.y += 4
-        print(f"Rock falls @ ({self.rect.x}, {self.rect.y})")
         if self.rect.bottom >= constants.DISPLAY_HEIGHT:
             self.kill()

@@ -47,11 +47,6 @@ class Game:
     # Run game until over
     while running:
         fpsClock.tick(constants.FPS)
-
-        for event in pygame.event.get():
-        #check if the user closed the window button and stop loop if they did
-            if event.type == pygame.QUIT:
-                running = False
         
         while welcome_page:
             for event in pygame.event.get():
@@ -59,14 +54,13 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     welcome_page = False
                 if event.type == pygame.QUIT:
+                    # this isn't working
                     running = False
 
             screen.draw_background(constants.WELCOME_IMAGE.convert(), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))  
             pygame.display.flip()
 
         while game_play:
-            if player.lives == 0:
-                running = False
 
             # Check if the game is over
             user.check_exit()
@@ -102,6 +96,9 @@ class Game:
             if rock_collision:
                 # Player takes damage
                 player.lives -= 1
+                if player.lives == 0:
+                    running = False
+                    game_play = False
 
             # fill background
             screen.fill_background((0, 255, 0))
