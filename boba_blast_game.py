@@ -12,8 +12,6 @@ pygame.mixer.init() #for sound
 
 # Track time
 
-fpsClock = pygame.time.Clock()
-
 
 def draw_lives(surf, x, y, lives, lives_image):
     """
@@ -117,6 +115,7 @@ class Game:
     user = GraphicalController()
     game_over = False
     score = 0
+    fpsClock = pygame.time.Clock()
 
     screen = pygame.display.set_mode((800, 600))
     screen = Display(screen)
