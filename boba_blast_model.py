@@ -4,7 +4,7 @@ Boba blast game model implementation.
 import random
 import pygame
 import constants
-# from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 class Player(pygame.sprite.Sprite):
     """
@@ -46,43 +46,47 @@ class Player(pygame.sprite.Sprite):
         if self.rect.centerx > constants.DISPLAY_WIDTH:
             self.rect.left = 0
 
-
-class Tapioca(pygame.sprite.Sprite):
-    def __init__(self, groups):
+class FallingObject(pygame.sprite.Sprite):
+    def __init__(self, groups, graphic):
         """
         Args:
             groups: A list with all groups to which add the Rock.
+            graphic: The image to use.
         """
         # image and rect attributes need to be exactly that bc pygame accesses them
         super().__init__(groups)
         self.image = pygame.transform.scale(
-            constants.TAPIOCA_IMAGE.convert(), (30, 30))
+            graphic.convert(), (30, 30))
         self.rect = self.image.get_rect(
             center=(random.randint(0, constants.DISPLAY_WIDTH), 0))
         # Set hitbox for collisions
         self._mask = pygame.mask.from_surface(self.image)
-
-    def update(self):
-        # Falls on every update.
-        self.rect.y += 2
+    
+    @abstractmethod
+    def update(self, rate):
+        """
+        Args:
+            rate: An integer representing the number of pixels to fall per tick
+        """
+        self.rect.y += rate
         if self.rect.bottom >= constants.DISPLAY_HEIGHT:
             self.kill()
 
+class Tapioca(FallingObject):
+    def __init__(self, groups):
+        super().__init__(groups, constants.TAPIOCA_IMAGE)
 
-class Rock(pygame.sprite.Sprite):
+    def update(self):
+        super().update(2)
+
+
+class Rock(FallingObject):
     def __init__(self, groups):
         """
         Args:
             groups: A list with all groups to which add the Rock.
         """
-        super().__init__(groups)
-        self.image = pygame.transform.scale(
-            constants.ROCK_IMAGE.convert(), (35, 35))
-        self.rect = self.image.get_rect(
-            center=(random.randint(0, constants.DISPLAY_WIDTH), 0))
-        self._mask = pygame.mask.from_surface(self.image)
+        super().__init__(groups, constants.ROCK_IMAGE)
 
     def update(self):
-        self.rect.y += 4
-        if self.rect.bottom >= constants.DISPLAY_HEIGHT:
-            self.kill()
+        super().update(4)
