@@ -58,7 +58,8 @@ get_group_cases = [
     ([test_player, test_rock, test_tapioca], all_sprites, True)
 ]
 
-
+# Define standard testing functions to check functions' outputs given certain
+# inputs defined above.
 @pytest.mark.parametrize("sprite, expected_group, expected_bool", 
     get_group_cases)
 def test_groups(sprite, expected_group, expected_bool):
