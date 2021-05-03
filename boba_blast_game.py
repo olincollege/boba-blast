@@ -2,7 +2,7 @@
 Creates and runs an instance of the Boba Blast game!
 """
 # Import necessary packages and classes from files
-import pygame
+import pygame, sys
 import constants
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
@@ -33,6 +33,7 @@ class Game:
     running = True
     welcome_page = True
     game_play = True
+    end_page = True
 
     # Create screen and initialize Display
     screen = pygame.display.set_mode((800, 600))
@@ -44,6 +45,7 @@ class Game:
     # Create player
     player = Player([all_sprites, player_sprite])
 
+
     # Run game until over
     while running:
         fpsClock.tick(constants.FPS)
@@ -53,9 +55,13 @@ class Game:
             #check if the user closed the window button and stop loop if they did
                 if event.type == pygame.KEYDOWN:
                     welcome_page = False
+                    break
                 if event.type == pygame.QUIT:
-                    # this isn't working
                     running = False
+                    pygame.quit()
+                    sys.exit()
+                    break
+
 
             screen.draw_background(constants.WELCOME_IMAGE.convert(), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))  
             pygame.display.flip()
@@ -97,7 +103,6 @@ class Game:
                 # Player takes damage
                 player.lives -= 1
                 if player.lives == 0:
-                    running = False
                     game_play = False
 
             # fill background
@@ -116,6 +121,22 @@ class Game:
                             constants.DISPLAY_WIDTH - 50, 25)
 
             pygame.display.flip()
+
+        while end_page:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYDOWN:
+                    game_play = True
+                    running = True
+                    break
+                if event.type == pygame.QUIT:
+                    running = False
+                    pygame.quit()
+                    sys.exit()
+                    break
+
+            screen.draw_background(constants.END_IMAGE.convert(), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))  
+            pygame.display.flip()
+            
     pygame.quit()
 
 
