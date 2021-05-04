@@ -9,12 +9,12 @@ from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca, Player
 # from boba_blast_player import Player
 
-class Game:
-    """
-    Attributes:
-
-    """
-
+#class Game:
+#    """
+#    Attributes:
+#
+#    """
+def main():
     pygame.init()
     pygame.mixer.init()  # for sound
 
@@ -125,9 +125,7 @@ class Game:
         while end_page:
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
-                    game_play = True
-                    running = True
-                    break
+                    main()
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
@@ -140,4 +138,5 @@ class Game:
     pygame.quit()
 
 
-
+if __name__ == '__main__':
+    main()
