@@ -26,10 +26,10 @@ def main():
     fpsClock = pygame.time.Clock()
 
     #load music and sound effect
-    background_music = pygame.mixer.music.load("bensound-littleidea.ogg")
+    background_music = pygame.mixer.music.load("audio/bensound-littleidea.ogg")
     pygame.mixer.music.set_volume(1.1)
     pygame.mixer.music.play(-1)
-    lose_life = pygame.mixer.Sound("Lost-life-sound-effect.ogg")
+    lose_life = pygame.mixer.Sound("audio/Lost-life-sound-effect.ogg")
     
 
     # Set game states
