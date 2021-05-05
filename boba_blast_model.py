@@ -18,7 +18,7 @@ class Spritesheet():
     def get_image(self, x, y, width, height):
         #create blank image
         image = pygame.Surface([width, height]).convert()
-        #copt sprite from large sheet onto smaller image
+        #copy sprite from large sheet onto smaller image
         image.blit(self.sheet, (0, 0), (x, y, width, height))
         image.set_colorkey((0, 255, 128), pygame.RLEACCEL)
         return image
@@ -67,10 +67,10 @@ class Player(pygame.sprite.Sprite):
         """
         if pressed_keys[pygame.K_LEFT]:
             # move_ip() stands for move in place to move current rect
-            self.rect.move_ip(-5, 0)
+            self.rect.move_ip(-2, 0)
 
         if pressed_keys[pygame.K_RIGHT]:
-            self.rect.move_ip(5, 0)
+            self.rect.move_ip(2, 0)
 
         # set screen boundaries
         if self.rect.centerx < 0:
@@ -132,9 +132,9 @@ class Tapioca(FallingObject):
 
     def update(self):
         """
-        Defines the Rock as falling 4 pixels per tick.
+        Defines the Rock as falling 1 pixel per tick.
         """
-        super().update(2)
+        super().update(1)
 
 
 class Rock(FallingObject):
@@ -153,6 +153,6 @@ class Rock(FallingObject):
 
     def update(self):
         """
-        Defines the Rock as falling 4 pixels per tick.
+        Defines the Rock as falling 3 pixels per tick.
         """
-        super().update(4)
+        super().update(3)
