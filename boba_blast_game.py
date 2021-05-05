@@ -113,20 +113,7 @@ def main():
                 if player.lives == 0:
                     game_play = False
 
-            # fill background
-            screen.fill_background((0, 255, 0))
-            # Draw background image
-            screen.draw_background(constants.BACKGROUND_IMAGE,
-                                   (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
-            # Draw all sprites (player, tapioca, rocks)
-            screen.draw_group(all_sprites)
-            # Draw remaining lives
-            screen.draw_lives(5, 5, player.lives)
-            # Draw score (tapioca collected)
-            screen.draw_text(str(score), 60, constants.DISPLAY_WIDTH / 2, 7)
-            # Draw # of boba made
-            screen.draw_text(f"x{score // 10}", 60,
-                             constants.DISPLAY_WIDTH - 50, 25)
+            screen.draw_all(player, all_sprites, score)
 
             pygame.display.flip()
 

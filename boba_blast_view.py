@@ -84,3 +84,19 @@ class Display():
         text_rect = text_surface.get_rect()
         text_rect.midtop = (x_pos, y_pos)
         self._screen.blit(text_surface, text_rect)
+
+    def draw_all(self, player, all_sprites, score):
+        # fill background
+        self.fill_background((0, 255, 0))
+        # Draw background image
+        self.draw_background(constants.BACKGROUND_IMAGE,
+                                (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
+        # Draw all sprites (player, tapioca, rocks)
+        self.draw_group(all_sprites)
+        # Draw remaining lives
+        self.draw_lives(5, 5, player.lives)
+        # Draw score (tapioca collected)
+        self.draw_text(str(score), 60, constants.DISPLAY_WIDTH / 2, 7)
+        # Draw # of boba made
+        self.draw_text(f"x{score // 10}", 60,
+                            constants.DISPLAY_WIDTH - 50, 25)
