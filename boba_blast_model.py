@@ -22,6 +22,9 @@ class Spritesheet():
         self.sheet = constants.SPRITESHEET.convert()
 
     def get_image(self, x_pos, y_pos, width, height):
+        """
+        Get an image from the spritesheet.
+        """
         image = pygame.Surface([width, height]).convert()
         # copy sprite from large sheet onto smaller image
         image.blit(self.sheet, (0, 0), (x_pos, y_pos, width, height))
@@ -165,16 +168,16 @@ class Rock(FallingObject):
         super().update(3)
 
 def is_collision(group1, group2):
-        """
-        Checks for a collision between two sprite groups, and removes the
-        sprite in group2 if a collision occurs.
+    """
+    Checks for a collision between two sprite groups, and removes the
+    sprite in group2 if a collision occurs.
 
-        Args:
-            group1: A pygame sprite group.
-            group2: A pygame sprite group, different instance than group1.
-        
-        Returns:
-            Boolean True if collision, False otherwise.
-        """
-        return pygame.sprite.groupcollide(group1, group2, False, True,
-            pygame.sprite.collide_mask)
+    Args:
+        group1: A pygame sprite group.
+        group2: A pygame sprite group, different instance than group1.
+
+    Returns:
+        Boolean True if collision, False otherwise.
+    """
+    return pygame.sprite.groupcollide(group1, group2, False, True,
+        pygame.sprite.collide_mask)

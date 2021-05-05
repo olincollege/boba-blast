@@ -70,6 +70,7 @@ def main():
 
             screen.draw_background(constants.WELCOME_IMAGE.convert(
             ), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
+
             pygame.display.flip()
 
         while game_play:
@@ -123,6 +124,7 @@ def main():
 
             screen.draw_background(constants.END_IMAGE.convert(
             ), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
+
             pygame.display.flip()
 
     pygame.quit()

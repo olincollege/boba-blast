@@ -14,6 +14,12 @@ class Display():
     # Create display screen
 
     def __init__(self, screen):
+        """
+        Initialize an instance of a Display.
+
+        Args:
+            screen: A Pygame Surface representing the screen.
+        """
         self._screen = screen
 
     def fill_background(self, color):
@@ -38,6 +44,10 @@ class Display():
     def screen_blit(self, image, rect):
         """
         Blits a sprite.
+
+        Args:
+            image: the image to blit.
+            rect: the Pygame rect of the image.
         """
         self._screen.blit(image, rect)
 
@@ -86,6 +96,14 @@ class Display():
         self._screen.blit(text_surface, text_rect)
 
     def draw_all(self, player, all_sprites, score):
+        """
+        Draw all necessary features.
+
+        Args:
+            player: the Player instance to draw.
+            all_sprites: A Pygame sprite group with all sprites in it.
+            score: An int representing the score of the player.
+        """
         # fill background
         self.fill_background((0, 255, 0))
         # Draw background image
