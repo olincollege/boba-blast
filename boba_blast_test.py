@@ -7,7 +7,7 @@ import pygame
 import constants
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
-from boba_blast_model import Rock, Tapioca, Player
+from boba_blast_model import Rock, Tapioca, Player, is_collision
 
 pygame.init()
 
@@ -91,7 +91,14 @@ get_update_cases = [
     test_tapioca
 ]
 
+# Test collisions (limited due to random generation)
+collision_player_sprite = pygame.sprite.GroupSingle()
+test_collision_player = Player([collision_player_sprite])
 
+get_collision_cases = [
+    # Players spawn at the same location, so they should collide.
+    (player_sprite, collision_player_sprite)
+]
 
 # Define standard testing functions to check functions' outputs given certain
 # inputs defined above.
@@ -149,3 +156,14 @@ def test_update(sprite):
     current_y = sprite.rect.centery
     sprite.update()
     assert sprite.rect.centery > current_y
+
+@pytest.mark.parametrize("group1, group2", get_collision_cases)
+def test_collision(group1, group2):
+    """
+    Test that sprites will collide.
+
+    Args:
+        group1: A Pygame group of sprites.
+        group2: A separate Pygame group of sprites.
+    """
+    assert is_collision(group1, group2)
