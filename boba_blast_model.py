@@ -5,7 +5,23 @@ from abc import abstractmethod
 import random
 import pygame
 import constants
+import os
 
+pygame.init()
+
+class Spritesheet():
+    screen = pygame.display.set_mode((800, 600))
+
+    def __init__(self):
+        self.sheet = constants.SPRITESHEET.convert()
+
+    def get_image(self, x, y, width, height):
+        #create blank image
+        image = pygame.Surface([width, height]).convert()
+        #copt sprite from large sheet onto smaller image
+        image.blit(self.sheet, (0, 0), (x, y, width, height))
+        image.set_colorkey((0, 255, 128), pygame.RLEACCEL)
+        return image
 
 class Player(pygame.sprite.Sprite):
     """
@@ -24,14 +40,19 @@ class Player(pygame.sprite.Sprite):
 
         Args:
             groups: A list with all groups to which add the Player.
-        """
+        """        
         # Add this instance of the Player to groups `all_sprites` and `player_sprite`.
         super().__init__(groups)
-        # surface is pygame object for representing images
+        
+        # create list that stores player images
+        #spritesheet = Spritesheet()
+        #self.image = spritesheet.get_image(123, 133, 146, 200)
         self.image = constants.PLAYER_IMAGE.convert()
+        self.image = pygame.transform.scale(self.image, (constants.SCALED_PLAYER_WIDTH, constants.SCALED_PLAYER_HEIGHT))
+
         # pygame object for storing rectangular coordinates
-        self.rect = self.image.get_rect(bottomleft=(
-            constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.PLAYER_HEIGHT))
+        self.rect = self.image.get_rect()
+        self.rect.midbottom = (constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.SCALED_PLAYER_HEIGHT/2)
         # mask for collisions (eventually change to just basket on head, once we have that)
         self._mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
@@ -53,7 +74,7 @@ class Player(pygame.sprite.Sprite):
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.rect.left = constants.DISPLAY_WIDTH - constants.PLAYER_WIDTH
+            self.rect.left = constants.DISPLAY_WIDTH - constants.SCALED_PLAYER_WIDTH
         if self.rect.centerx > constants.DISPLAY_WIDTH:
             self.rect.left = 0
 

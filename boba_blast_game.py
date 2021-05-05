@@ -2,18 +2,14 @@
 Creates and runs an instance of the Boba Blast game!
 """
 # Import necessary packages and classes from files
-import pygame, sys
+import pygame, sys, constants
 import constants
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca, Player
-# from boba_blast_player import Player
 
-#class Game:
-#    """
-#    Attributes:
-#
-#    """
+
+
 def main():
     pygame.init()
     pygame.mixer.init()  # for sound
@@ -24,10 +20,17 @@ def main():
     rock_sprites = pygame.sprite.Group()
     player_sprite = pygame.sprite.GroupSingle()
 
-    # 
+    # load variables
     user = GraphicalController()
     score = 0
     fpsClock = pygame.time.Clock()
+
+    #load music and sound effect
+    background_music = pygame.mixer.music.load("bensound-littleidea.ogg")
+    pygame.mixer.music.set_volume(1.1)
+    pygame.mixer.music.play(-1)
+    lose_life = pygame.mixer.Sound("Lost-life-sound-effect.ogg")
+    
 
     # Set game states
     running = True
@@ -67,7 +70,7 @@ def main():
             pygame.display.flip()
 
         while game_play:
-
+            pygame.mixer.music.unpause()
             # Check if the game is over
             user.check_exit()
 
@@ -100,6 +103,9 @@ def main():
             rock_collision = pygame.sprite.groupcollide(
                 player_sprite, rock_sprites, False, True, pygame.sprite.collide_mask)
             if rock_collision:
+                pygame.mixer.music.pause()
+                pygame.mixer.Sound.play(lose_life)
+                pygame.time.delay(2000)
                 # Player takes damage
                 player.lives -= 1
                 if player.lives == 0:
