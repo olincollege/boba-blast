@@ -30,6 +30,7 @@ def main():
     pygame.mixer.music.set_volume(1.1)
     pygame.mixer.music.play(-1)
     lose_life = pygame.mixer.Sound("audio/Lost-life-sound-effect.ogg")
+    add_tapioca = pygame.mixer.Sound("audio/tapioca_sound.ogg")
     
 
     # Set game states
@@ -81,9 +82,9 @@ def main():
             screen.screen_blit(player.image, player.rect)
 
             # generate Rocks and Tapioca
-            if pygame.time.get_ticks() % 500 == 0:
+            if pygame.time.get_ticks() % 1000 == 0:
                 Rock([all_sprites, rock_sprites])
-            elif pygame.time.get_ticks() % 150 == 0:
+            elif pygame.time.get_ticks() % 350 == 0:
                 Tapioca([all_sprites, tapioca_sprites])
 
             # Calls the update method of each group
@@ -94,6 +95,7 @@ def main():
             tapioca_collision = pygame.sprite.groupcollide(
                 player_sprite, tapioca_sprites, False, True, pygame.sprite.collide_mask)
             if tapioca_collision:
+                pygame.mixer.Sound.play(add_tapioca)
                 # Increment score by 1
                 score += 1
 

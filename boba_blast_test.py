@@ -40,6 +40,7 @@ test_tapioca = Tapioca([all_sprites, tapioca_sprites])
 
 # Define sets of test cases.
 
+# Test __init__ methods of sprites.
 get_group_cases = [
     # Test that player is in intended groups
     (test_player, all_sprites, True),
@@ -67,6 +68,7 @@ get_move_sprite_cases = [
     ([pygame.K_DOWN], 400)
 ]
 
+# Test random location generation for FallingObjects.
 get_randomness_cases = [
     # Test that two FallingObjects are generated at different x-values.
     (Rock([all_sprites]), Rock([all_sprites])),
