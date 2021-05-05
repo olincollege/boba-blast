@@ -5,6 +5,7 @@ Creates and runs an instance of the Boba Blast game!
 import sys
 import pygame
 import constants
+import boba_blast_model as model
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca, Player
@@ -92,21 +93,14 @@ def main():
             # Calls the update method of each group
             all_sprites.update()
 
-            # Check for collision between player instance and any tapioca, and
-            # delete tapioca if there is one
-            tapioca_collision = pygame.sprite.groupcollide(
-                player_sprite, tapioca_sprites, False, True, pygame.sprite.collide_mask)
-            if tapioca_collision:
+            # Check for collision between player instance and any tapioca
+            if model.is_collision(player_sprite, tapioca_sprites):
                 pygame.mixer.Sound.play(add_tapioca)
                 # Increment score by 1
                 score += 1
 
-            # Check for collision between player instance and any rock, and delete
-            # rock is there is one
-            rock_collision = pygame.sprite.groupcollide(
-                player_sprite, rock_sprites, False, True, pygame.sprite.collide_mask)
-            if rock_collision:
-                pygame.mixer.music.pause()
+            # Check for collision between player instance and any rock
+            if model.is_collision(player_sprite, rock_sprites):
                 pygame.mixer.Sound.play(lose_life)
                 # Player takes damage
                 player.lives -= 1

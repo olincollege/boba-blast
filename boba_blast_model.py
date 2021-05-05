@@ -86,7 +86,6 @@ class Player(pygame.sprite.Sprite):
         if self.rect.centerx > constants.DISPLAY_WIDTH:
             self.rect.left = 0
 
-
 class FallingObject(pygame.sprite.Sprite):
     """
     A class to represent all Falling Objects, aka tapioca and rocks.
@@ -164,3 +163,18 @@ class Rock(FallingObject):
         Defines the Rock as falling 3 pixels per tick.
         """
         super().update(3)
+
+def is_collision(group1, group2):
+        """
+        Checks for a collision between two sprite groups, and removes the
+        sprite in group2 if a collision occurs.
+
+        Args:
+            group1: A pygame sprite group.
+            group2: A pygame sprite group, different instance than group1.
+        
+        Returns:
+            Boolean True if collision, False otherwise.
+        """
+        return pygame.sprite.groupcollide(group1, group2, False, True,
+            pygame.sprite.collide_mask)
