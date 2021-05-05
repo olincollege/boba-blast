@@ -76,6 +76,12 @@ get_randomness_cases = [
     (Tapioca([all_sprites]), Rock([all_sprites]))
 ]
 
+get_update_cases = [
+    # Test that FallingObjects fall when updated.
+    test_rock,
+    test_tapioca
+]
+
 
 # Define standard testing functions to check functions' outputs given certain
 # inputs defined above.
@@ -118,3 +124,15 @@ def test_randomness(sprite1, sprite2):
         sprite2: A separate instance of a FallingObject.
     """
     assert sprite1.rect.centerx != sprite2.rect.centerx
+
+@pytest.mark.parametrize("sprite", get_update_cases)
+def test_update(sprite):
+    """
+    Test that FallingObjects increase y-val when updated.
+
+    Args:
+        sprite: An instance of a FallingObject.
+    """
+    current_y = sprite.rect.centery
+    sprite.update()
+    assert sprite.rect.centery > current_y
