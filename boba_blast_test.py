@@ -38,6 +38,9 @@ test_player = Player([all_sprites, player_sprite])
 test_rock = Rock([all_sprites, rock_sprites])
 test_tapioca = Tapioca([all_sprites, tapioca_sprites])
 
+# Simulate keyboard input
+test_events = 
+
 # Define sets of test cases.
 
 get_group_cases = [

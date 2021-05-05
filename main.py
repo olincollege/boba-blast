@@ -1,7 +1,7 @@
-from boba_blast_game import Game
+import boba_blast_game
 
 def main():
-    Game()
+    boba_blast_game.main()
 
 if __name__ == "__main__":
     main()
