@@ -57,14 +57,25 @@ get_group_cases = [
     ([test_player, test_rock, test_tapioca], all_sprites, True)
 ]
 
-# get_move_sprite_cases = [
-#     # Test that hitting left arrow moves left
-#     ([pygame.event.Event(pygame.K_LEFT)], 398),
-#     # Test that hitting right arrow moves right
-#     ([pygame.K_RIGHT], 400),
-#     # Test that other keys have no effect
-#     ([pygame.K_DOWN], 400)
-# ]
+# Test player controls.
+
+right_arrow = pygame.event.Event(pygame.KEYDOWN, {'unicode': '',
+    'key': 1073741903, 'mod': 0, 'scancode': 79, 'window': None})
+
+left_arrow = pygame.event.Event(pygame.KEYDOWN, {'unicode': '',
+    'key': 1073741904, 'mod': 0, 'scancode': 80, 'window': None})
+
+other_key = pygame.event.Event(pygame.KEYDOWN, {'unicode': '',
+    'key': 1073741906, 'mod': 0, 'scancode': 82, 'window': None})
+
+get_input_cases = [
+    # Test that right arrow moves right.
+    (right_arrow, 1073741903),
+    # Test that left arrow moves left.
+    (left_arrow, 1073741904),
+    # Test that another key does nothing.
+    (other_key, 1073741906)
+]
 
 # Test random location generation for FallingObjects.
 get_randomness_cases = [
@@ -79,6 +90,7 @@ get_update_cases = [
     test_rock,
     test_tapioca
 ]
+
 
 
 # Define standard testing functions to check functions' outputs given certain
@@ -97,21 +109,22 @@ def test_groups(sprite, expected_group, expected_bool):
     """
     assert expected_group.has(sprite) == expected_bool
 
-# @pytest.mark.parametrize("pressed_keys, expected_centerx",
-#     get_move_sprite_cases)
-# def test_move_sprite(pressed_keys, expected_centerx):
-#     """
-#     Test that sprites are being added to the correct groups.
+@pytest.mark.parametrize("event, key",
+    get_input_cases)
+def test_input(event, key):
+    """
+    Test that user input is correctly queued.
 
-#     Args:
-#         sprite: The sprite to add to a group.
-#         expected_group: The group the sprite should be added to.
-#         expected_bool: Whether or not the sprite is expected to be in
-#             expected_group.
-#     """
-#     test_player.move_sprite(pressed_keys)
-#     assert test_player.rect.centerx == expected_centerx
-
+    Args:
+        event: The event in the event queue caused by pressing the key.
+        key: The key pressed.
+    """
+    pygame.event.clear()
+    # Add event to the queue
+    pygame.event.post(event)
+    # Check characteristics of the event, and that it was added to the queue.
+    for event in pygame.event.get(pygame.KEYDOWN):
+        assert event.key == key
 
 @pytest.mark.parametrize("sprite1, sprite2", get_randomness_cases)
 def test_randomness(sprite1, sprite2):
