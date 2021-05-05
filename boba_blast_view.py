@@ -65,23 +65,6 @@ class Display():
             img_rect.y = y
             self._screen.blit(constants.LIVES_IMAGE, img_rect)
 
-    def draw_boba(self, x, y, score):
-        """
-        Draw images representing the number of drinks a player has collected.
-
-        Args:
-            x: An integer representing the x-coordinate of the image.
-            y: An integer representing the y-coordinate of the image.
-            score: An integer representing the player's score (number of tapioca).
-        """
-        # 10 tapioca = 1 boba
-        bobas = score // 10
-        for i in range(bobas):
-            img_rect = constants.BOBA_IMAGE.get_rect()
-            img_rect.x = x + 20 * i
-            img_rect.y = y
-            self._screen.blit(constants.BOBA_IMAGE, img_rect)
-
     # all fonts: pygame.font.get_fonts()
     def draw_text(self, text, size, x, y):
         """
