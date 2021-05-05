@@ -48,7 +48,6 @@ def main():
     # Create player
     player = Player([all_sprites, player_sprite])
 
-
     # Run game until over
     while running:
         fpsClock.tick(constants.FPS)
@@ -105,7 +104,6 @@ def main():
             if rock_collision:
                 pygame.mixer.music.pause()
                 pygame.mixer.Sound.play(lose_life)
-                pygame.time.delay(2000)
                 # Player takes damage
                 player.lives -= 1
                 if player.lives == 0:
