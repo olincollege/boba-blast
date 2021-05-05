@@ -50,23 +50,23 @@ class Display():
         """
         group.draw(self._screen)
 
-    def draw_lives(self, x, y, lives):
+    def draw_lives(self, x_pos, y_pos, lives):
         """
         Draw images representing the number of lives the player has.
 
         Args:
-            x: An integer representing the x-coordinate of the image.
-            y: An integer representing the y-coordinate of the image.
+            x_pos: An integer representing the x_pos-coordinate of the image.
+            y_pos: An integer representing the y_pos-coordinate of the image.
             lives: An integer representing the number of lives a player has.
         """
         for i in range(lives):
             img_rect = constants.LIVES_IMAGE.get_rect()
-            img_rect.x = x + 40 * i
-            img_rect.y = y
+            img_rect.x = x_pos + 40 * i
+            img_rect.y = y_pos
             self._screen.blit(constants.LIVES_IMAGE, img_rect)
 
     # all fonts: pygame.font.get_fonts()
-    def draw_text(self, text, size, x, y):
+    def draw_text(self, text, size, x_pos, y_pos):
         """
         Draw text on the screen.
 
@@ -74,13 +74,13 @@ class Display():
             surf: Surface on which to draw.
             text: A string representing the text to render.
             size: An integer representing the size of the text.
-            x: An integer representing the x-coordinate of the text.
-            y: An integer representing the y-coordinate of the text.
+            x_pos: An integer representing the x_pos-coordinate of the text.
+            y_pos: An integer representing the y_pos-coordinate of the text.
         """
 
         font_name = pygame.font.match_font('sarai')
         font = pygame.font.Font(font_name, size)
         text_surface = font.render(text, True, (255, 255, 255))
         text_rect = text_surface.get_rect()
-        text_rect.midtop = (x, y)
+        text_rect.midtop = (x_pos, y_pos)
         self._screen.blit(text_surface, text_rect)
