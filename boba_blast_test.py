@@ -38,9 +38,6 @@ test_player = Player([all_sprites, player_sprite])
 test_rock = Rock([all_sprites, rock_sprites])
 test_tapioca = Tapioca([all_sprites, tapioca_sprites])
 
-# Simulate keyboard input
-test_events = 
-
 # Define sets of test cases.
 
 get_group_cases = [
@@ -61,6 +58,23 @@ get_group_cases = [
     ([test_player, test_rock, test_tapioca], all_sprites, True)
 ]
 
+get_move_sprite_cases = [
+    # Test that hitting left arrow moves left
+    ([pygame.event.Event(pygame.K_LEFT)], 398),
+    # Test that hitting right arrow moves right
+    ([pygame.K_RIGHT], 400),
+    # Test that other keys have no effect
+    ([pygame.K_DOWN], 400)
+]
+
+get_randomness_cases = [
+    # Test that two FallingObjects are generated at different x-values.
+    (Rock([all_sprites]), Rock([all_sprites])),
+    (Tapioca([all_sprites]), Rock([all_sprites])),
+    (Tapioca([all_sprites]), Rock([all_sprites]))
+]
+
+
 # Define standard testing functions to check functions' outputs given certain
 # inputs defined above.
 @pytest.mark.parametrize("sprite, expected_group, expected_bool", 
@@ -76,3 +90,29 @@ def test_groups(sprite, expected_group, expected_bool):
             expected_group.
     """
     assert expected_group.has(sprite) == expected_bool
+
+@pytest.mark.parametrize("pressed_keys, expected_centerx", 
+    get_move_sprite_cases)
+def test_move_sprite(pressed_keys, expected_centerx):
+    """
+    Test that sprites are being added to the correct groups.
+
+    Args:
+        sprite: The sprite to add to a group.
+        expected_group: The group the sprite should be added to.
+        expected_bool: Whether or not the sprite is expected to be in 
+            expected_group.
+    """
+    test_player.move_sprite(pressed_keys)
+    assert test_player.rect.centerx == expected_centerx
+
+@pytest.mark.parametrize("sprite1, sprite2", get_randomness_cases)
+def test_randomness(sprite1, sprite2):
+    """
+    Test that FallingObjects are being generated at random x-locations.
+
+    Args:
+        sprite1: An instance of a FallingObject.
+        sprite2: A separate instance of a FallingObject.
+    """
+    assert sprite1.rect.centerx != sprite2.rect.centerx
