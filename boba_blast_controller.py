@@ -1,7 +1,9 @@
 """
 Creates the controller for the boba blast game
 """
-import pygame, sys
+import sys
+import pygame
+
 
 class GraphicalController:
     """
@@ -47,4 +49,3 @@ class GraphicalController:
                 pygame.quit()
                 sys.exit()
                 break
-

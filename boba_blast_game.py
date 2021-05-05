@@ -2,15 +2,18 @@
 Creates and runs an instance of the Boba Blast game!
 """
 # Import necessary packages and classes from files
-import pygame, sys, constants
+import sys
+import pygame
 import constants
 from boba_blast_controller import GraphicalController
 from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca, Player
 
 
-
 def main():
+    """
+    docstring
+    """
     pygame.init()
     pygame.mixer.init()  # for sound
 
@@ -23,15 +26,14 @@ def main():
     # load variables
     user = GraphicalController()
     score = 0
-    fpsClock = pygame.time.Clock()
+    fps_clock = pygame.time.Clock()
 
-    #load music and sound effect
-    background_music = pygame.mixer.music.load("audio/bensound-littleidea.ogg")
+    # load music and sound effect
+    pygame.mixer.music.load("audio/bensound-littleidea.ogg")
     pygame.mixer.music.set_volume(1.1)
     pygame.mixer.music.play(-1)
     lose_life = pygame.mixer.Sound("audio/Lost-life-sound-effect.ogg")
     add_tapioca = pygame.mixer.Sound("audio/tapioca_sound.ogg")
-    
 
     # Set game states
     running = True
@@ -51,11 +53,11 @@ def main():
 
     # Run game until over
     while running:
-        fpsClock.tick(constants.FPS)
-        
+        fps_clock.tick(constants.FPS)
+
         while welcome_page:
             for event in pygame.event.get():
-            #check if the user closed the window button and stop loop if they did
+                # check if the user closed the window button and stop loop if they did
                 if event.type == pygame.KEYDOWN:
                     welcome_page = False
                     break
@@ -65,8 +67,8 @@ def main():
                     sys.exit()
                     break
 
-
-            screen.draw_background(constants.WELCOME_IMAGE.convert(), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))  
+            screen.draw_background(constants.WELCOME_IMAGE.convert(
+            ), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
             pygame.display.flip()
 
         while game_play:
@@ -115,7 +117,7 @@ def main():
             screen.fill_background((0, 255, 0))
             # Draw background image
             screen.draw_background(constants.BACKGROUND_IMAGE,
-                                (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
+                                   (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
             # Draw all sprites (player, tapioca, rocks)
             screen.draw_group(all_sprites)
             # Draw remaining lives
@@ -124,7 +126,7 @@ def main():
             screen.draw_text(str(score), 60, constants.DISPLAY_WIDTH / 2, 7)
             # Draw # of boba made
             screen.draw_text(f"x{score // 10}", 60,
-                            constants.DISPLAY_WIDTH - 50, 25)
+                             constants.DISPLAY_WIDTH - 50, 25)
 
             pygame.display.flip()
 
@@ -138,9 +140,10 @@ def main():
                     sys.exit()
                     break
 
-            screen.draw_background(constants.END_IMAGE.convert(), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))  
+            screen.draw_background(constants.END_IMAGE.convert(
+            ), (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
             pygame.display.flip()
-            
+
     pygame.quit()
 
 

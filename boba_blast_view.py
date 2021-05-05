@@ -12,6 +12,7 @@ class Display():
     pylint
     """
     # Create display screen
+
     def __init__(self, screen):
         self._screen = screen
 
