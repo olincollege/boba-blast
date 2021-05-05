@@ -12,6 +12,9 @@ pygame.init()
 class Spritesheet():
     """
     Access spritesheet.
+
+    Attributes:
+        _sheet: An image representing the spritesheet.
     """
     screen = pygame.display.set_mode((800, 600))
 
@@ -19,7 +22,7 @@ class Spritesheet():
         """
         Initialize the spritesheet.
         """
-        self.sheet = constants.SPRITESHEET.convert()
+        self._sheet = constants.SPRITESHEET.convert()
 
     def get_image(self, x_pos, y_pos, width, height):
         """
@@ -27,7 +30,7 @@ class Spritesheet():
         """
         image = pygame.Surface([width, height]).convert()
         # copy sprite from large sheet onto smaller image
-        image.blit(self.sheet, (0, 0), (x_pos, y_pos, width, height))
+        image.blit(self._sheet, (0, 0), (x_pos, y_pos, width, height))
         image.set_colorkey((0, 255, 128), pygame.RLEACCEL)
         return image
 
@@ -57,14 +60,14 @@ class Player(pygame.sprite.Sprite):
         #spritesheet = Spritesheet()
         #self.image = spritesheet.get_image(123, 133, 146, 200)
         self.image = constants.PLAYER_IMAGE.convert()
-        self.image = pygame.transform.scale(
-            self.image, (constants.SCALED_PLAYER_WIDTH, constants.SCALED_PLAYER_HEIGHT))
+        self.image = pygame.transform.scale(self.image, (
+            constants.SCALED_PLAYER_WIDTH, constants.SCALED_PLAYER_HEIGHT))
 
         # pygame object for storing rectangular coordinates
         self.rect = self.image.get_rect()
-        self.rect.midbottom = (
-            constants.DISPLAY_WIDTH/2, constants.DISPLAY_HEIGHT - constants.SCALED_PLAYER_HEIGHT/2)
-        # mask for collisions (eventually change to just basket on head, once we have that)
+        self.rect.midbottom = (constants.DISPLAY_WIDTH/2,
+            constants.DISPLAY_HEIGHT - constants.SCALED_PLAYER_HEIGHT/2)
+        # mask for collisions
         self._mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
         self.lives = 3
@@ -85,9 +88,11 @@ class Player(pygame.sprite.Sprite):
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.rect.left = constants.DISPLAY_WIDTH - constants.SCALED_PLAYER_WIDTH
+            self.rect.left = constants.DISPLAY_WIDTH - \
+                constants.SCALED_PLAYER_WIDTH
         if self.rect.centerx > constants.DISPLAY_WIDTH:
             self.rect.left = 0
+
 
 class FallingObject(pygame.sprite.Sprite):
     """
@@ -105,7 +110,7 @@ class FallingObject(pygame.sprite.Sprite):
             groups: A list with all groups to which add the Rock.
             graphic: The image to use.
         """
-        # image and rect attributes need to be exactly that bc pygame accesses them
+        # image and rect attributes need to be exact bc pygame accesses them
         super().__init__(groups)
         self.image = pygame.transform.scale(
             graphic.convert(), (30, 30))
