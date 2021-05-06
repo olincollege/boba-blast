@@ -47,6 +47,7 @@ This is a short bio about me!!
 <br>
 #### Claire Hashizume
 *Olin College of Engineering '24*
+
 Likes traveling, photography, and bubble tea in no particular order.
 <br><br><br><br><br>
 
