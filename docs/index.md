@@ -13,7 +13,7 @@ To play this game, you will need pygame installed on python. You will also need 
 
 #### About Us
 
-{% include authors.html image_path="logo-05.png" title="Claire Hashizume" description="Likes photography, traveling, and bubble tea in no particular order." %}    
+{% include aboutUs.html image_path="IMG_0830.png" title="Claire Hashizume" description="Likes photography, traveling, and bubble tea in no particular order." %}    
 
 #### Attribution
 We looked at [KidsCanCode](http://kidscancode.org/lessons/) as
