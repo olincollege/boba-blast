@@ -35,15 +35,15 @@ To play this game, you will need python and pygame installed. You will also need
 
 ### About Us
 
-<img src="website-images/berwin1.png" width ="50%" height = "50%" style="float:left;margin:0px 30px">
+<img src="website-images/berwin1.png" width ="20%" height = "20%" style="float:left;margin:30px 30px">
 #### Berwin Lan
 This is a short bio about me!!
-<br><br><br><br>
+<br><br><br><br><br><br><br>
 
-<img src="website-images/claire1.png" width ="50%" height = "50%" style="float:left;margin:0px 30px">
+<img src="website-images/claire1.png" width ="20%" height = "20%" style="float:left;margin:30px 30px">
 #### Claire Hashizume
 Likes traveling, photography, and bubble tea in no particular order.
-<br><br><br><br>
+<br><br><br><br><br><br><br>
 
 
 
