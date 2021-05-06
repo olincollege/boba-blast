@@ -36,16 +36,3 @@ class GraphicalController:
                 sys.exit()
                 break
 
-    def start_game(self):
-        """
-        pylint
-        """
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                welcome_page = False
-                break
-            if event.type == pygame.QUIT:
-                running = False
-                pygame.quit()
-                sys.exit()
-                break

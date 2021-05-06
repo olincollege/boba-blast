@@ -20,7 +20,14 @@ DISPLAY_WIDTH = 800
 DISPLAY_HEIGHT = 600
 
 SPRITESHEET = pygame.image.load(
-    os.path.join(IMAGES_FOLDER, 'Spritesheet-07.png'))
+    os.path.join(IMAGES_FOLDER, 'Spritesheet.png'))
+SPRITESHEET_WIDTH, SPRITESHEET_HEIGHT = SPRITESHEET.get_size()
+SCALED_SPRITESHEET_WIDTH = int(SPRITESHEET_WIDTH * 0.5)
+SCALED_SPRITESHEET_HEIGHT = int(SPRITESHEET_HEIGHT * 0.5)
+
+
+PLAYER_WIDTH = 123
+PLAYER_HEIGHT = 200
 
 WELCOME_IMAGE = pygame.image.load(os.path.join(
     IMAGES_FOLDER, 'Boba-Blast-Welcome.png'))  # .convert()
@@ -31,21 +38,6 @@ END_IMAGE = pygame.image.load(os.path.join(
     IMAGES_FOLDER, 'Boba-Blast-End.png'))  # .convert()
 END_IMAGE = pygame.transform.scale(END_IMAGE, (800, 600))
 
-
-TAPIOCA_IMAGE = pygame.image.load(os.path.join(
-    IMAGES_FOLDER, 'Boba-Blast(2)-05-tapioca.png'))
-TAPIOCA_IMAGE.set_colorkey((255, 255, 255))
-
-ROCK_IMAGE = pygame.image.load(os.path.join(
-    IMAGES_FOLDER, 'Boba-Blast(2)-05-rock.png'))
-ROCK_IMAGE.set_colorkey((255, 255, 255))
-
-PLAYER_IMAGE = pygame.image.load(os.path.join(
-    IMAGES_FOLDER, 'player-facing-front.png'))
-PLAYER_IMAGE.set_colorkey((0, 255, 128))
-PLAYER_WIDTH, PLAYER_HEIGHT = PLAYER_IMAGE.get_size()
-SCALED_PLAYER_WIDTH = int(PLAYER_WIDTH * 0.1)
-SCALED_PLAYER_HEIGHT = int(PLAYER_HEIGHT * 0.1)
 
 LIVES_IMAGE = pygame.image.load(os.path.join(
     IMAGES_FOLDER, 'Boba-Blast(2)-lives.png'))

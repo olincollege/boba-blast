@@ -12,10 +12,11 @@ The game opens to a welcome screen, and the user can press any key to begin the 
 insert video link
 
 ### Character
-<img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:30px 30px">
+<img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:0px 30px">
 This is the character the user plays as!
 
 The character can be moved left and right by using the left and right arrows, respectively. The character movement wraps around at the edge of the screen, so the game player can easily move from one edge of the screen to the other.
+
 
 ### Game Visualizations
 We created all the game visualizations ourselves using Adobe Illustrator. We wanted our game to convey a happy and exciting vibe in the city to replicate the aesthetic many bubble tea stores have so we used several bright colors for our color palette.

@@ -23,6 +23,8 @@ class Spritesheet():
         Initialize the spritesheet.
         """
         self._sheet = constants.SPRITESHEET.convert()
+        self._sheet = pygame.transform.scale(self._sheet, (constants.SCALED_SPRITESHEET_WIDTH,
+                                                           constants.SCALED_SPRITESHEET_HEIGHT))
 
     def get_image(self, x_pos, y_pos, width, height):
         """
@@ -31,7 +33,7 @@ class Spritesheet():
         image = pygame.Surface([width, height]).convert()
         # copy sprite from large sheet onto smaller image
         image.blit(self._sheet, (0, 0), (x_pos, y_pos, width, height))
-        image.set_colorkey((0, 255, 128), pygame.RLEACCEL)
+        image.set_colorkey((68, 68, 68), pygame.RLEACCEL)
         return image
 
 
@@ -57,16 +59,33 @@ class Player(pygame.sprite.Sprite):
         super().__init__(groups)
 
         # create list that stores player images
-        #spritesheet = Spritesheet()
-        #self.image = spritesheet.get_image(123, 133, 146, 200)
-        self.image = constants.PLAYER_IMAGE.convert()
-        self.image = pygame.transform.scale(self.image, (
-            constants.SCALED_PLAYER_WIDTH, constants.SCALED_PLAYER_HEIGHT))
-
-        # pygame object for storing rectangular coordinates
+        spritesheet = Spritesheet()
+        self.image = spritesheet.get_image(0, 66, 123, 200)
         self.rect = self.image.get_rect()
-        self.rect.midbottom = (constants.DISPLAY_WIDTH/2,
-            constants.DISPLAY_HEIGHT - constants.SCALED_PLAYER_HEIGHT/2)
+        
+        self.y = constants.DISPLAY_HEIGHT - 175/2
+        self.x = constants.DISPLAY_WIDTH/2
+        self.rect.midbottom = (self.x, self.y)
+
+        self.animation_index_left = 0
+        self.animation_index_right = 0
+
+        #create a list that stores all the player animation images
+        self.animate_right = [self.image]
+        self.animate_left = [self.image]
+
+        self.right1 = spritesheet.get_image(123, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right2 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right3 = spritesheet.get_image(369, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right4 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left1 = spritesheet.get_image(492, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left2 = spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left3 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left4 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+
+        self.animate_right.extend([self.right1, self.right2, self.right3, self.right4])
+        self.animate_left.extend([self.left1, self.left2, self.left3, self.left4])
+
         # mask for collisions
         self._mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
@@ -79,12 +98,34 @@ class Player(pygame.sprite.Sprite):
         Args:
             pressed_keys: A sequence representing the keys a user presses.
         """
-        if pressed_keys[pygame.K_LEFT]:
-            # move_ip() stands for move in place to move current rect
-            self.rect.move_ip(-2, 0)
+        if self.animation_index_left > 4:
+            self.animation_index_left = 0
+        if self.animation_index_right > 4:
+            self.animation_index_left = 0
 
-        if pressed_keys[pygame.K_RIGHT]:
-            self.rect.move_ip(2, 0)
+        #player moves left
+        if pressed_keys[pygame.K_LEFT]:
+            self.image = self.animate_left[2]
+            self.rect = self.image.get_rect()
+            self.rect.midbottom = (self.x, self.y)
+            self.rect.move(-2, 0)
+            self.animation_index_left += 1
+            self.x = self.x-2
+
+        #player moves right
+        elif pressed_keys[pygame.K_RIGHT]:
+            self.image = self.animate_right[2]
+            self.rect = self.image.get_rect()
+            self.rect.midbottom = (self.x, self.y)
+            self.rect.move(2, 0)
+            self.animation_index_right += 1
+            self.x = self.x+2
+
+        #player is static
+        else:
+            self.image = self.animate_right[0]
+            self.rect = self.image.get_rect()
+            self.rect.midbottom = (self.x, self.y)
 
         # set screen boundaries
         if self.rect.centerx < 0:
@@ -104,7 +145,7 @@ class FallingObject(pygame.sprite.Sprite):
         _mask: A Pygame mask for collision detection.
     """
 
-    def __init__(self, groups, graphic):
+    def __init__(self, groups, sprite_coords):
         """
         Args:
             groups: A list with all groups to which add the Rock.
@@ -112,8 +153,11 @@ class FallingObject(pygame.sprite.Sprite):
         """
         # image and rect attributes need to be exact bc pygame accesses them
         super().__init__(groups)
-        self.image = pygame.transform.scale(
-            graphic.convert(), (30, 30))
+        spritesheet = Spritesheet()
+        self.image = spritesheet.get_image(sprite_coords[0], sprite_coords[1],
+                                           sprite_coords[2], sprite_coords[3])
+
+        self.image = pygame.transform.scale(self.image, (30, 30))
         self.rect = self.image.get_rect(
             center=(random.randint(0, constants.DISPLAY_WIDTH), 0))
         # Set hitbox for collisions
@@ -143,7 +187,7 @@ class Tapioca(FallingObject):
         Args:
             groups: A list with all groups to which add the Tapioca.
         """
-        super().__init__(groups, constants.TAPIOCA_IMAGE)
+        super().__init__(groups, [246, 333, 133, 123]) 
 
     def update(self, rate=1):
         """
@@ -164,7 +208,7 @@ class Rock(FallingObject):
         Args:
             groups: A list with all groups to which add the Rock.
         """
-        super().__init__(groups, constants.ROCK_IMAGE)
+        super().__init__(groups, [123, 333, 133, 123])
 
     def update(self, rate=3):
         """
