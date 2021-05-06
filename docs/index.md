@@ -39,9 +39,10 @@ To play this game, you will need python and pygame installed. You will also need
 <br>
 #### Berwin Lan
 This is a short bio about me!!
-<br><br><br><br><br>
+<br><br><br><br><br><br>
 
-<img src="website-images/claire1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
+<img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 30px">
+<br>
 #### Claire Hashizume
 Likes traveling, photography, and bubble tea in no particular order.
 <br><br><br><br><br>
