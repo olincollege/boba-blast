@@ -65,6 +65,7 @@ def main():
                     running = False
                     pygame.quit()
                     sys.exit()
+                    pygame.mixer.stop()
                     break
 
             screen.draw_background(constants.WELCOME_IMAGE.convert(
@@ -118,6 +119,7 @@ def main():
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
+                    pygame.mixer.stop()
                     sys.exit()
                     break
 
