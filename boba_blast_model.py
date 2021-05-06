@@ -71,21 +71,22 @@ class Player(pygame.sprite.Sprite):
         self.animation_index_right = 0
 
         #create a list that stores all the player animation images
-        self.animate_right = [self.image]
-        self.animate_left = [self.image]
+        self.static_image = self.image
+        self.animate_right = []
+        self.animate_left = []
 
-        self.right1 = spritesheet.get_image(123, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.right2 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.right3 = spritesheet.get_image(369, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.right4 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left1 = spritesheet.get_image(492, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left2 = spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right0 = spritesheet.get_image(123, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right1 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right2 = spritesheet.get_image(369, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right3 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left0 = spritesheet.get_image(492, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left1 = spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left2 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
         self.left3 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left4 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
 
-        self.animate_right.extend([self.right1, self.right2, self.right3, self.right4])
-        self.animate_left.extend([self.left1, self.left2, self.left3, self.left4])
-
+        self.animate_right.extend([self.right0, self.right1, self.right2, self.right3])
+        self.animate_left.extend([self.left0, self.left1, self.left2, self.left3])
+ 
         # mask for collisions
         self._mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
@@ -98,14 +99,14 @@ class Player(pygame.sprite.Sprite):
         Args:
             pressed_keys: A sequence representing the keys a user presses.
         """
-        if self.animation_index_left > 4:
+        if self.animation_index_left > 3:
             self.animation_index_left = 0
-        if self.animation_index_right > 4:
-            self.animation_index_left = 0
+        if self.animation_index_right > 3:
+            self.animation_index_right = 0
 
         #player moves left
         if pressed_keys[pygame.K_LEFT]:
-            self.image = self.animate_left[2]
+            self.image = self.animate_left[self.animation_index_left//3]
             self.rect = self.image.get_rect()
             self.rect.midbottom = (self.x, self.y)
             self.rect.move(-2, 0)
@@ -114,7 +115,7 @@ class Player(pygame.sprite.Sprite):
 
         #player moves right
         elif pressed_keys[pygame.K_RIGHT]:
-            self.image = self.animate_right[2]
+            self.image = self.animate_right[self.animation_index_right//3]
             self.rect = self.image.get_rect()
             self.rect.midbottom = (self.x, self.y)
             self.rect.move(2, 0)
@@ -123,16 +124,17 @@ class Player(pygame.sprite.Sprite):
 
         #player is static
         else:
-            self.image = self.animate_right[0]
+            self.image = self.static_image
             self.rect = self.image.get_rect()
             self.rect.midbottom = (self.x, self.y)
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.rect.left = constants.DISPLAY_WIDTH - \
-                constants.SCALED_PLAYER_WIDTH
+            self.x = constants.DISPLAY_WIDTH
+            self.rect.midbottom = (self.x, self.y)
         if self.rect.centerx > constants.DISPLAY_WIDTH:
-            self.rect.left = 0
+            self.x = 0
+            self.rect.midbottom = (self.x, self.y)
 
 
 class FallingObject(pygame.sprite.Sprite):
