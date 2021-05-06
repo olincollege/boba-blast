@@ -1,4 +1,4 @@
-<img src="website-images/Boba-Blast-logo-05.png" style="margin:20px 0px">
+<img src="website-images/Boba-Blast-header.png">
 ## Welcome! 
 In this game, your mission is to collect as many tapioca pearls as you can to make some delicious bubble tea while avoiding the rocks falling from the sky. 
 
@@ -12,7 +12,7 @@ The game opens to a welcome screen, and the user can press any key to begin the 
 insert video link
 
 ### Character
-<img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:0px 30px">
+<img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:30px 30px">
 This is the character the user plays as!
 
 The character can be moved left and right by using the left and right arrows, respectively. The character movement wraps around at the edge of the screen, so the game player can easily move from one edge of the screen to the other.
@@ -31,19 +31,22 @@ A detailed installation guide can be found [here](https://github.com/olincollege
 
 To play this game, you will need python and pygame installed. You will also need to download all the files in the [boba-blast repository](https://github.com/olincollege/boba-blast). Then, navigate to the boba-blast folder and run the following command in the terminal to start playing: 
 
-<code>$ python main.py<\code>
+<code>$ python main.py</code>
 
 ### About Us
 
 <img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
 <br>
 #### Berwin Lan
+*Olin College of Engineering '24*
+    
 This is a short bio about me!!
 <br><br><br><br><br><br>
 
 <img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 30px">
 <br>
 #### Claire Hashizume
+*Olin College of Engineering '24*
 Likes traveling, photography, and bubble tea in no particular order.
 <br><br><br><br><br>
 
