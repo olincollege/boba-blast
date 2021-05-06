@@ -1,11 +1,11 @@
 <img src="logo-05.png" style="margin:20px 0px">
-### Welcome! 
+## Welcome! 
 In this game, your mission is to collect as many tapioca pearls as you can to make some delicious bubble tea while avoiding the rocks falling from the sky. 
 
-### Project Goal
+## Project Goal
 Our main goal of this project was to create an interactive software that users can interact with. We wanted to create a game that users can play easily and we wanted to focus on the visual game design to create a fun and colorful interface.
 
-### Game Overview
+## Game Overview
 The game opens to a welcome screen, and the user can press any key to begin the game. The character starts at the center of the screen with 3 lives. Soon after the game begins, tapioca and rocks start falling from the sky. The player uses the left and right arrow keys to move the character left and right in order to avoid the rocks and to collect the tapioca in the bucket it's carrying. For every 10 tapioca pearls collected, the player makes 1 bubble tea drink. The number of lives are displayed on the upper left corner, the number of tapioca collected is displayed on the top of the screen, and the number of boba drinks are tracked on the upper right corner of the screen. Once the player loses all its lives, the game shows a game over screen and gives the player the option to play again.
 
 #### Game Demo
@@ -19,7 +19,7 @@ We created all the game visualizations ourselves using Adobe Illustrator. We wan
 
 #### Audio?? Welcome and end screen??
 
-### Installation
+## Installation
 A detailed installation guide can be found [here](https://github.com/olincollege/boba-blast/blob/main/README.md)
 
 To play this game, you will need python and pygame installed. You will also need to download all the files in the [boba-blast repository](https://github.com/olincollege/boba-blast). Then, navigate to the boba-blast folder and run the following command in the terminal to start playing: 
