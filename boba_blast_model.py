@@ -82,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         self.left0 = spritesheet.get_image(492, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
         self.left1 = spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
         self.left2 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left3 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.left3 =spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
 
         self.animate_right.extend([self.right0, self.right1, self.right2, self.right3])
         self.animate_left.extend([self.left0, self.left1, self.left2, self.left3])
