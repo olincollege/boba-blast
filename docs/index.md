@@ -13,7 +13,7 @@ The game starts with the character at the center of the screen with 3 lives. Soo
 
 
 ### Character
-<img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:0px 30px">
+<img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:30px 30px">
 This is the character the user plays as!
 
 The character can be moved left and right by using the left and right arrows, respectively. The character movement wraps around at the edge of the screen, so the game player can easily move from one edge of the screen to the other.
@@ -28,11 +28,13 @@ Our game contains 3 displays: a welcome screen, the game play screen, and a game
 
 <img src="website-images/welcome.png" width = "70%" height = "70%" style="margin:20px 10px"> 
 
-The game opens up to a welcome screen, and the user can press any key to begin the game. 
+The game opens up to a welcome screen, and the user can press any key to begin the game.
+
 <img src="website-images/gameplay.png" width = "70%" height = "70%" style="margin:20px 10px"> 
 It then transitions to the game play screen. 
 
 <img src="website-images/game over.png" width = "70%" height = "70%" style="margin:20px 10px">
+
 Once the player loses all its lives, the game over screen displays and gives the player the option to play again. To exit the game, the user can simply close the window.
 
 
@@ -51,8 +53,7 @@ To play this game, you will need python and pygame installed. You will also need
 <code>$ python main.py</code>
 
 ### About Us
-<img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 30px">
-<br>
+<img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 0px">
 
 #### Claire Hashizume
 *Olin College of Engineering '24*
@@ -60,7 +61,7 @@ To play this game, you will need python and pygame installed. You will also need
 Likes traveling, photography, and bubble tea in no particular order.
 <br><br><br><br>
 
-<img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
+<img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 0px">
 
 #### Berwin Lan
 *Olin College of Engineering '24*
