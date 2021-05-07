@@ -36,14 +36,6 @@ To play this game, you will need python and pygame installed. You will also need
 
 ### About Us
 
-<img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
-<br>
-#### Berwin Lan
-*Olin College of Engineering '24*
-    
-This is a short bio about me!!
-<br><br><br><br><br><br>
-
 <img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 30px">
 <br>
 #### Claire Hashizume
@@ -52,6 +44,13 @@ This is a short bio about me!!
 Likes traveling, photography, and bubble tea in no particular order.
 <br><br><br><br><br>
 
+<img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
+<br>
+#### Berwin Lan
+*Olin College of Engineering '24*
+    
+Big fan of boba, seltzer, and changing her hair color frequently.
+<br><br><br><br><br><br>
 
 
 
