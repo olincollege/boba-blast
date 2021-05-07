@@ -7,7 +7,7 @@ import pygame
 pygame.init()
 
 # Frames per second
-FPS = 60
+FPS = 90
 
 # figures out path to the folder with this file
 GAME_FOLDER = os.path.dirname(__file__)

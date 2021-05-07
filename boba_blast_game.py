@@ -119,7 +119,6 @@ def main():
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()
-                    pygame.mixer.stop()
                     sys.exit()
                     break
 
