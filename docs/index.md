@@ -17,8 +17,7 @@ The game starts with the character at the center of the screen with 3 lives. Soo
 This is the character the user plays as!
 
 The character can be moved left and right by using the left and right arrows, respectively. The character movement wraps around at the edge of the screen, so the game player can easily move from one edge of the screen to the other.
-
-
+<br>
 
 ### Game Visualizations
 We created all the game visualizations ourselves using Adobe Illustrator. We wanted our game to convey a happy and exciting vibe in the city to replicate the aesthetic many bubble tea stores have so we used several bright colors for our color palette.
@@ -28,7 +27,7 @@ Our game contains 3 displays: a welcome screen, the game play screen, and a game
 
 <img src="website-images/welcome.png" width = "70%" height = "70%" style="margin:20px 10px"> 
 
-
+The game opens up to a welcome screen, and the user can press any key to begin the game.
 
 <img src="website-images/gameplay.png" width = "70%" height = "70%" style="margin:20px 10px"> 
 
@@ -44,7 +43,9 @@ Once the player loses all its lives, the game over screen displays and gives the
 
 The player statistics are displayed at the top of the game screen. The number of lives are displayed on the upper left corner, the number of tapioca collected is displayed on the top of the screen, and the number of boba drinks are tracked on the upper right corner of the screen. 
 
-### Audio?? Welcome and end screen??
+### Audio
+For our game background music, we chose a kid's song from [bensound.com](https://www.bensound.com/) to fit our theme of a bright and fun game. We also added sound effects for everytime the player collects a tapioca and for when they lose a life.
+
 
 ## Installation
 A detailed installation guide can be found [here](https://github.com/olincollege/boba-blast/blob/main/README.md)
@@ -52,6 +53,7 @@ A detailed installation guide can be found [here](https://github.com/olincollege
 To play this game, you will need python and pygame installed. You will also need to download all the files in the [boba-blast repository](https://github.com/olincollege/boba-blast). Then, navigate to the boba-blast folder and run the following command in the terminal to start playing: 
 
 <code>$ python main.py</code>
+<br>
 
 ### About Us
 <img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:0px 30px">
