@@ -36,4 +36,3 @@ class GraphicalController:
                 sys.exit()
                 pygame.mixer.stop()
                 break
-

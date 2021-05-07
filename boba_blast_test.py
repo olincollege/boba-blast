@@ -4,9 +4,6 @@ Test file for the Boba Blast game.
 # Import necessary packages and classes from files
 import pytest
 import pygame
-import constants
-from boba_blast_controller import GraphicalController
-from boba_blast_view import Display
 from boba_blast_model import Rock, Tapioca, Player, is_collision
 
 pygame.init()
@@ -15,21 +12,6 @@ all_sprites = pygame.sprite.Group()
 tapioca_sprites = pygame.sprite.Group()
 rock_sprites = pygame.sprite.Group()
 player_sprite = pygame.sprite.GroupSingle()
-
-#
-user = GraphicalController()
-score = 0
-fpsClock = pygame.time.Clock()
-
-# Set game states
-running = True
-
-# Create screen and initialize Display
-screen = pygame.display.set_mode((800, 600))
-screen = Display(screen)
-screen.draw_background(constants.BACKGROUND_IMAGE,
-                       (constants.DISPLAY_WIDTH, constants.DISPLAY_HEIGHT))
-pygame.display.set_caption("Boba Blast!")
 
 # Create player
 test_player = Player([all_sprites, player_sprite])
@@ -130,8 +112,8 @@ def test_input(event, key):
     # Add event to the queue
     pygame.event.post(event)
     # Check characteristics of the event, and that it was added to the queue.
-    for event in pygame.event.get(pygame.KEYDOWN):
-        assert event.key == key
+    for each_event in pygame.event.get(pygame.KEYDOWN):
+        assert each_event.key == key
 
 @pytest.mark.parametrize("sprite1, sprite2", get_randomness_cases)
 def test_randomness(sprite1, sprite2):
@@ -167,3 +149,5 @@ def test_collision(group1, group2):
         group2: A separate Pygame group of sprites.
     """
     assert is_collision(group1, group2)
+
+# pygame.tests.run(blit)

@@ -23,8 +23,9 @@ class Spritesheet():
         Initialize the spritesheet.
         """
         self._sheet = constants.SPRITESHEET.convert()
-        self._sheet = pygame.transform.scale(self._sheet, (constants.SCALED_SPRITESHEET_WIDTH,
-                                                           constants.SCALED_SPRITESHEET_HEIGHT))
+        self._sheet = pygame.transform.scale(self._sheet,
+            (constants.SCALED_SPRITESHEET_WIDTH,
+            constants.SCALED_SPRITESHEET_HEIGHT))
 
     def get_image(self, x_pos, y_pos, width, height):
         """
@@ -62,10 +63,10 @@ class Player(pygame.sprite.Sprite):
         spritesheet = Spritesheet()
         self.image = spritesheet.get_image(0, 66, 123, 200)
         self.rect = self.image.get_rect()
-        
-        self.y = constants.DISPLAY_HEIGHT - 175/2
-        self.x = constants.DISPLAY_WIDTH/2
-        self.rect.midbottom = (self.x, self.y)
+
+        self.y_pos = constants.DISPLAY_HEIGHT - 175/2
+        self.x_pos = constants.DISPLAY_WIDTH/2
+        self.rect.midbottom = (self.x_pos, self.y_pos)
 
         self.animation_index_left = 0
         self.animation_index_right = 0
@@ -75,18 +76,28 @@ class Player(pygame.sprite.Sprite):
         self.animate_right = []
         self.animate_left = []
 
-        self.right0 = spritesheet.get_image(123, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.right1 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.right2 = spritesheet.get_image(369, 67, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.right3 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left0 = spritesheet.get_image(492, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left1 = spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left2 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
-        self.left3 =spritesheet.get_image(368, 333, constants.PLAYER_WIDTH, constants.PLAYER_HEIGHT)
+        self.right0 = spritesheet.get_image(123, 67, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.right1 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.right2 = spritesheet.get_image(369, 67, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.right3 = spritesheet.get_image(246, 66, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.left0 = spritesheet.get_image(492, 333, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.left1 = spritesheet.get_image(368, 333, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.left2 =spritesheet.get_image(492, 66, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
+        self.left3 =spritesheet.get_image(368, 333, constants.PLAYER_WIDTH,
+            constants.PLAYER_HEIGHT)
 
-        self.animate_right.extend([self.right0, self.right1, self.right2, self.right3])
-        self.animate_left.extend([self.left0, self.left1, self.left2, self.left3])
- 
+        self.animate_right.extend([self.right0, self.right1, self.right2,
+            self.right3])
+        self.animate_left.extend([self.left0, self.left1, self.left2,
+            self.left3])
+
         # mask for collisions
         self._mask = pygame.mask.from_surface(self.image)
         # set number of lives to start with
@@ -108,33 +119,33 @@ class Player(pygame.sprite.Sprite):
         if pressed_keys[pygame.K_LEFT]:
             self.image = self.animate_left[self.animation_index_left//3]
             self.rect = self.image.get_rect()
-            self.rect.midbottom = (self.x, self.y)
+            self.rect.midbottom = (self.x_pos, self.y_pos)
             self.rect.move(-2, 0)
             self.animation_index_left += 1
-            self.x = self.x-2
+            self.x_pos = self.x_pos-2
 
         #player moves right
         elif pressed_keys[pygame.K_RIGHT]:
             self.image = self.animate_right[self.animation_index_right//3]
             self.rect = self.image.get_rect()
-            self.rect.midbottom = (self.x, self.y)
+            self.rect.midbottom = (self.x_pos, self.y_pos)
             self.rect.move(2, 0)
             self.animation_index_right += 1
-            self.x = self.x+2
+            self.x_pos = self.x_pos+2
 
         #player is static
         else:
             self.image = self.static_image
             self.rect = self.image.get_rect()
-            self.rect.midbottom = (self.x, self.y)
+            self.rect.midbottom = (self.x_pos, self.y_pos)
 
         # set screen boundaries
         if self.rect.centerx < 0:
-            self.x = constants.DISPLAY_WIDTH
-            self.rect.midbottom = (self.x, self.y)
+            self.x_pos = constants.DISPLAY_WIDTH
+            self.rect.midbottom = (self.x_pos, self.y_pos)
         if self.rect.centerx > constants.DISPLAY_WIDTH:
-            self.x = 0
-            self.rect.midbottom = (self.x, self.y)
+            self.x_pos = 0
+            self.rect.midbottom = (self.x_pos, self.y_pos)
 
 
 class FallingObject(pygame.sprite.Sprite):
@@ -189,7 +200,7 @@ class Tapioca(FallingObject):
         Args:
             groups: A list with all groups to which add the Tapioca.
         """
-        super().__init__(groups, [246, 333, 133, 123]) 
+        super().__init__(groups, [246, 333, 133, 123])
 
     def update(self, rate=1):
         """
