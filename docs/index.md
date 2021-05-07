@@ -19,15 +19,21 @@ This is the character the user plays as!
 The character can be moved left and right by using the left and right arrows, respectively. The character movement wraps around at the edge of the screen, so the game player can easily move from one edge of the screen to the other.
 
 
+
 ### Game Visualizations
 We created all the game visualizations ourselves using Adobe Illustrator. We wanted our game to convey a happy and exciting vibe in the city to replicate the aesthetic many bubble tea stores have so we used several bright colors for our color palette.
 
 #### Backgrounds
 Our game contains 3 displays: a welcome screen, the game play screen, and a game over screen.
 
-<img src="website-images/welcome.png" width = "30%" height = "30%" style="margin:0px 10px"> <img src="website-images/gameplay.png" width = "30%" height = "30%" style="margin:0px 10px"> <img src="website-images/game over.png" width = "30%" height = "30%" style="margin:0px 10px">
+<img src="website-images/welcome.png" width = "70%" height = "70%" style="margin:20px 10px"> 
 
-The game opens up to a welcome screen, and the user can press any key to begin the game. It then transitions to the game play screen. Once the player loses all its lives, the game over screen displays and gives the player the option to play again. To exit the game, the user can simply close the window.
+The game opens up to a welcome screen, and the user can press any key to begin the game. 
+<img src="website-images/gameplay.png" width = "70%" height = "70%" style="margin:20px 10px"> 
+It then transitions to the game play screen. 
+
+<img src="website-images/game over.png" width = "70%" height = "70%" style="margin:20px 10px">
+Once the player loses all its lives, the game over screen displays and gives the player the option to play again. To exit the game, the user can simply close the window.
 
 
 #### Game components
@@ -46,12 +52,13 @@ To play this game, you will need python and pygame installed. You will also need
 
 ### About Us
 <img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 30px">
+<br>
 
 #### Claire Hashizume
 *Olin College of Engineering '24*
 
 Likes traveling, photography, and bubble tea in no particular order.
-<br><br><br>
+<br><br><br><br>
 
 <img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
 
@@ -59,7 +66,7 @@ Likes traveling, photography, and bubble tea in no particular order.
 *Olin College of Engineering '24*
     
 Big fan of boba, seltzer, and changing her hair color frequently.
-<br><br><br><br>
+<br><br><br><br><br>
 
 
 
