@@ -202,7 +202,7 @@ class Tapioca(FallingObject):
         """
         super().__init__(groups, [246, 333, 133, 123])
 
-    def update(self, rate=1):
+    def update(self, rate=6):
         """
         Defines the Rock as falling 1 pixel per tick.
         """
@@ -223,7 +223,7 @@ class Rock(FallingObject):
         """
         super().__init__(groups, [123, 333, 133, 123])
 
-    def update(self, rate=3):
+    def update(self, rate=9):
         """
         Defines the Rock as falling 3 pixels per tick.
         """
