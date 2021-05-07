@@ -11,6 +11,7 @@ The game starts with the character at the center of the screen with 3 lives. Soo
 ### Game Demo
 <iframe width="560" height="315" src="https://www.youtube.com/embed/O2k-xCMZcpo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+
 ### Character
 <img src="website-images/game-components-player.png" width = "15%" height = "15%" style="float:left;margin:0px 30px">
 This is the character the user plays as!
@@ -24,13 +25,13 @@ We created all the game visualizations ourselves using Adobe Illustrator. We wan
 #### Backgrounds
 Our game contains 3 displays: a welcome screen, the game play screen, and a game over screen.
 
-<img src="website-images/welcome.png" width = "20%" height = "20%" style="margin:0px 20px"> <img src="website-images/gameplay.png" width = "20%" height = "20%" style="margin:0px 20px"> <img src="website-images/game over.png" width = "20%" height = "20%" style="margin:0px 20px">
+<img src="website-images/welcome.png" width = "30%" height = "30%" style="margin:0px 10px"> <img src="website-images/gameplay.png" width = "30%" height = "30%" style="margin:0px 10px"> <img src="website-images/game over.png" width = "30%" height = "30%" style="margin:0px 10px">
 
 The game opens up to a welcome screen, and the user can press any key to begin the game. It then transitions to the game play screen. Once the player loses all its lives, the game over screen displays and gives the player the option to play again. To exit the game, the user can simply close the window.
 
 
 #### Game components
-<img src="website-images/game components(1).png" width = "50%" height = "50%" style="margin:0px 30px">
+<img src="website-images/game components(1).png" width = "70%" height = "70%" style="margin:0px 20px">
 
 The player statistics are displayed at the top of the game screen. The number of lives are displayed on the upper left corner, the number of tapioca collected is displayed on the top of the screen, and the number of boba drinks are tracked on the upper right corner of the screen. 
 
@@ -44,22 +45,21 @@ To play this game, you will need python and pygame installed. You will also need
 <code>$ python main.py</code>
 
 ### About Us
-
 <img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:30px 30px">
-<br>
+
 #### Claire Hashizume
 *Olin College of Engineering '24*
 
 Likes traveling, photography, and bubble tea in no particular order.
-<br><br><br><br><br>
+<br><br><br>
 
 <img src="website-images/berwin1.png" width ="30%" height = "30%" style="float:left;margin:30px 30px">
-<br>
+
 #### Berwin Lan
 *Olin College of Engineering '24*
     
 Big fan of boba, seltzer, and changing her hair color frequently.
-<br><br><br><br><br><br>
+<br><br><br><br>
 
 
 
