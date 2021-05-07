@@ -3,7 +3,7 @@
 In this game, your mission is to collect as many tapioca pearls as you can to make some delicious bubble tea while avoiding the rocks falling from the sky. 
 
 ## Project Goal
-This project was our final project for the SoftDes class at Olin College. Our main goal of this project was to create an interactive software that users can interact with. We wanted to create a game that users can play easily and we wanted to focus on the visual game design to create a fun and colorful interface. Because we focused on the visual design of the game and created the visuals ourselves, we went with a simpler (but still really fun to play) game.
+Our main goal of this project was to create an interactive software that users can interact with. We wanted to create a game that users can play easily and we wanted to focus on the visual game design to create a fun and colorful interface. Because we focused on the visual design of the game and created the visuals ourselves, we went with a simpler (but still really fun to play) game.
 
 ## Game Overview
 The game starts with the character at the center of the screen with 3 lives. Soon after the game begins, tapioca and rocks start falling from the sky. The player uses the left and right arrow keys to move the character left and right in order to avoid the rocks and to collect the tapioca in the bucket it's carrying. For every 10 tapioca pearls collected, the player makes 1 bubble tea drink. The game ends once the player loses all its lives.
