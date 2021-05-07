@@ -3,7 +3,7 @@
 In this game, your mission is to collect as many tapioca pearls as you can to make some delicious bubble tea while avoiding the rocks falling from the sky. 
 
 ## Project Goal
-Our main goal of this project was to create an interactive software that users can interact with. We wanted to create a game that users can play easily and we wanted to focus on the visual game design to create a fun and colorful interface.
+This project was our final project for the SoftDes class at Olin College. Our main goal of this project was to create an interactive software that users can interact with. We wanted to create a game that users can play easily and we wanted to focus on the visual game design to create a fun and colorful interface. Because we focused on the visual design of the game and created the visuals ourselves, we went with a simpler (but still really fun to play) game.
 
 ## Game Overview
 The game starts with the character at the center of the screen with 3 lives. Soon after the game begins, tapioca and rocks start falling from the sky. The player uses the left and right arrow keys to move the character left and right in order to avoid the rocks and to collect the tapioca in the bucket it's carrying. For every 10 tapioca pearls collected, the player makes 1 bubble tea drink. The game ends once the player loses all its lives.
@@ -25,15 +25,15 @@ We created all the game visualizations ourselves using Adobe Illustrator. We wan
 #### Backgrounds
 Our game contains 3 displays: a welcome screen, the game play screen, and a game over screen.
 
-<img src="website-images/welcome.png" width = "70%" height = "70%" style="margin:20px 10px"> 
+<img src="website-images/welcome.png" width = "70%" height = "70%" style="margin:10px 10px"> 
 
 The game opens up to a welcome screen, and the user can press any key to begin the game.
 
-<img src="website-images/gameplay.png" width = "70%" height = "70%" style="margin:20px 10px"> 
+<img src="website-images/gameplay.png" width = "70%" height = "70%" style="margin:10px 10px"> 
 
 It then transitions to the game play screen. 
 
-<img src="website-images/game over.png" width = "70%" height = "70%" style="margin:20px 10px">
+<img src="website-images/game over.png" width = "70%" height = "70%" style="margin:10px 10px">
 
 Once the player loses all its lives, the game over screen displays and gives the player the option to play again. To exit the game, the user can simply close the window.
 
@@ -55,7 +55,7 @@ To play this game, you will need python and pygame installed. You will also need
 <code>$ python main.py</code>
 <br>
 
-### About Us
+## About Us
 <img src="website-images/claire1.png" width ="30%" height = "30%" style="float:right;margin:0px 30px">
 
 #### Claire Hashizume
@@ -75,7 +75,7 @@ Big fan of boba, seltzer, and changing her hair color frequently.
 
 
 
-#### Attribution
+### Attribution
 We looked at [KidsCanCode](http://kidscancode.org/lessons/) as a resource when starting this project to learn some of the basic components of Pygame.
 
 For our game music and sound effects, we used audio from the following sites:
