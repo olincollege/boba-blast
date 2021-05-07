@@ -120,18 +120,18 @@ class Player(pygame.sprite.Sprite):
             self.image = self.animate_left[self.animation_index_left//3]
             self.rect = self.image.get_rect()
             self.rect.midbottom = (self.x_pos, self.y_pos)
-            self.rect.move(-2, 0)
+            self.rect.move(-4, 0)
             self.animation_index_left += 1
-            self.x_pos = self.x_pos-2
+            self.x_pos = self.x_pos-4
 
         #player moves right
         elif pressed_keys[pygame.K_RIGHT]:
             self.image = self.animate_right[self.animation_index_right//3]
             self.rect = self.image.get_rect()
             self.rect.midbottom = (self.x_pos, self.y_pos)
-            self.rect.move(2, 0)
+            self.rect.move(4, 0)
             self.animation_index_right += 1
-            self.x_pos = self.x_pos+2
+            self.x_pos = self.x_pos+4
 
         #player is static
         else:
@@ -202,7 +202,7 @@ class Tapioca(FallingObject):
         """
         super().__init__(groups, [246, 333, 133, 123])
 
-    def update(self, rate=6):
+    def update(self, rate=9):
         """
         Defines the Rock as falling 1 pixel per tick.
         """
@@ -223,7 +223,7 @@ class Rock(FallingObject):
         """
         super().__init__(groups, [123, 333, 133, 123])
 
-    def update(self, rate=9):
+    def update(self, rate=12):
         """
         Defines the Rock as falling 3 pixels per tick.
         """
