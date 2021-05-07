@@ -24,7 +24,7 @@ We created all the game visualizations ourselves using Adobe Illustrator. We wan
 #### Backgrounds
 Our game contains 3 displays: a welcome screen, the game play screen, and a game over screen.
 
-<img src="website-images/welcome.png" width = "50%" height = "50%" style="margin:0px 30px"> <img src="website-images/gameplay.png" width = "50%" height = "50%" style="margin:0px 30px"> <img src="website-images/game over.png" width = "50%" height = "50%" style="margin:0px 30px">
+<img src="website-images/welcome.png" width = "20%" height = "20%" style="margin:0px 20px"> <img src="website-images/gameplay.png" width = "20%" height = "20%" style="margin:0px 20px"> <img src="website-images/game over.png" width = "20%" height = "20%" style="margin:0px 20px">
 
 The game opens up to a welcome screen, and the user can press any key to begin the game. It then transitions to the game play screen. Once the player loses all its lives, the game over screen displays and gives the player the option to play again. To exit the game, the user can simply close the window.
 
