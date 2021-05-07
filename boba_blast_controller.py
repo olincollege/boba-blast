@@ -1,5 +1,5 @@
 """
-Creates the controller for the boba blast game
+Creates the controller for the boba blast game.
 """
 import sys
 import pygame
@@ -7,7 +7,7 @@ import pygame
 
 class GraphicalController:
     """
-    pylint
+    Creates an instance of a GraphicalController, which takes player input.
     """
 
     def __init__(self):

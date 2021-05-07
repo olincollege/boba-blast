@@ -1,5 +1,5 @@
 """
-pylint
+Creates and accesses an instance of a Display.
 """
 
 import pygame
@@ -9,7 +9,10 @@ pygame.init()
 
 class Display():
     """
-    pylint
+    Creates an instance of a Display.
+
+    Attributes:
+        _screen: A Pygame Surface representing the screen.
     """
     # Create display screen
 

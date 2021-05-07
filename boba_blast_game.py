@@ -12,7 +12,7 @@ from boba_blast_model import Rock, Tapioca, Player, is_collision
 
 def main():
     """
-    docstring
+    Runs Boba Blast game.
     """
     pygame.init()
     pygame.mixer.init()  # for sound
